@@ -15,7 +15,7 @@
 }
 .teacher:HOVER, .student:HOVER {
 	-webkit-animation: mouseover 1s;
-	font-size: 50px;
+	font-size: 40px;
 }
 
 @-webkit-keyframes mouseover{
@@ -24,8 +24,8 @@
 		width: 60px;		
 	}
 	to{
-		font-size: 50px;
-		width: 100px;
+		font-size: 40px;
+		width: 80px;
 	}
 }
 @-webkit-keyframes loginform{
@@ -53,11 +53,12 @@
 </style>
 </head>
 <body bgcolor="#b2dfee">
+	<h1>学生成绩管理系统</h1>
 	<%
 		if(request.getParameter("flag")==null){
 	%>
-		<a class="teacher" href="LoginPage.jsp?flag=1">老师</a>
-		<a class="student" href="LoginPage.jsp?flag=0">学生</a>
+		<a class="teacher" href="LoginPage.jsp?flag=1">老师入口</a>
+		<a class="student" href="LoginPage.jsp?flag=0">学生入口</a>
 	<% 
 		}
 		else{
