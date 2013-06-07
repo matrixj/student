@@ -1,4 +1,4 @@
-package DataBaseControler;
+package com.student.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

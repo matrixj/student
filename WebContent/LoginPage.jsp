@@ -6,60 +6,96 @@
 <meta http-equiv="Content-Type" content="text/html; charset=GB18030">
 <title>欢迎</title>
 <style type="text/css">
+.top{
+	position:absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 30%;
+	background: #b2dfee;
+	border-bottom: 5px solid #8b8989;
+	z-index: 1;
+}
+
 .teacher,.student{
-	background-color:#000099;
+	background-color: #0066ff;
 	position:relative;
-	left:39%;
+	top:200px;
+	left:35%;
 	color: #ffffff;
-	display: inline;
 	font-size: 30px;
 	width: 60px;
 	text-decoration: none;
-	margin: 0;
+	margin: 20px;
 	padding: 10px;
+	border: 2px double #ffffff;
+	border-radius:15px;
 }
 .teacher:HOVER, .student:HOVER {
 	-webkit-animation: mouseover 0.5s;
-	font-size: 40px;
+	background-color:#b2dfee;
 }
 
-@-webkit-keyframes mouseover{
+@-webkit-keyframes load{
 	from{
-		font-size: 30px;
-		width: 60px;		
+		left: 0;		
 	}
 	to{
-		font-size: 40px;
-		width: 80px;
+		left: 35%;
+	}
+}
+@-webkit-keyframes mouseover{
+	from{
+		background-color:#0066ff;
+	}
+	to{
+		background-color:#b2dfee;
 	}
 }
 @-webkit-keyframes loginform{
 	from{
-		left: 0;
+		top: 400px;
 	}
 	to{
-		left: 38%;
+		top: 100px;
+	}
+}
+@-webkit-keyframes over{
+	from{
+		z-index:-1;
+	}
+	to{
+		z-index:5;
 	}
 }
 .form{
 	background-color: #b2dfee;
 	position: relative;
 	left: 38%;
+	top: 100px;
 	border: 2px solid #000099;
 	width: 300px;
-	-webkit-animation: loginform 1s;
+	-webkit-animation: loginform 0.5s;
 	font-size: 20px;
-	color: #000099;
+	color: #0066ff;
+	z-index: 2;
+	border-radius:20px;
+	font-weight:bold;
 }
 .btn{
 	width: 50px;
 	border: 2px solid #000099;
 	margin: 5px;
 }
+h1{
+	position: relative;
+	top:80px;
+	z-index: 2
+}
 </style>
 </head>
-<body bgcolor="#b2dfee">
-	<h1 align="center" style="color:#000099;font-size: 50px">学生成绩管理系统</h1>
+<body bgcolor="#0066ff" style="overflow-y:hidden">
+	<h1 align="center" style="color:#0066ff;font-size: 50px">学生成绩管理系统</h1>
 	<%
 		if(request.getParameter("flag")==null){
 	%>
@@ -69,19 +105,20 @@
 		}
 		else{
 	%>
-		<form action="loginServlet?flag=<%= request.getParameter("flag") %>" method="post">
-			<div class="form">
+		<div class="form">
+			<form action="loginServlet?flag=<%= request.getParameter("flag") %>" method="post">
 				<table cellspacing="10px" width="300px">
 					<tr><td colspan="2"><h4><% if(request.getParameter("flag").equals("1")){out.print("老师登陆");}else {out.print("学生登陆");} %></h4></td></tr>
 					<tr><td>用户名:</td><td><input type="text" name="ID"/></td></tr>
 					<tr><td>密码:</td><td><input type="password" name="password"/></td></tr>
 					<tr><td colspan="2" align="right"><input type="submit" value="登陆" class="btn"><input type="reset" value="重置" class="btn"></td></tr>
 				</table>
-			</div>
-		</form>
+			</form>
+		</div>
 	<%
 		}
 	%>
+	<div class="top"></div>
 </body>
 </html>
 
