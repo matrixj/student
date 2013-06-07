@@ -49,6 +49,7 @@
 	width: 300px;
 	-webkit-animation: loginform 1s;
 	font-size: 20px;
+	color: #000099;
 }
 .btn{
 	width: 50px;
@@ -71,9 +72,9 @@
 		<form action="loginServlet?flag=<%= request.getParameter("flag") %>" method="post">
 			<div class="form">
 				<table cellspacing="10px" width="300px">
-					<tr><td colspan="2"><% if(request.getParameter("flag").equals("1")){out.print("老师登陆");}else {out.print("学生登陆");} %></td></tr>
+					<tr><td colspan="2"><h4><% if(request.getParameter("flag").equals("1")){out.print("老师登陆");}else {out.print("学生登陆");} %></h4></td></tr>
 					<tr><td>用户名:</td><td><input type="text" name="ID"/></td></tr>
-					<tr><td>密码:</td><td><input type="text" name="password"/></td></tr>
+					<tr><td>密码:</td><td><input type="password" name="password"/></td></tr>
 					<tr><td colspan="2" align="right"><input type="submit" value="登陆" class="btn"><input type="reset" value="重置" class="btn"></td></tr>
 				</table>
 			</div>
