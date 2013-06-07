@@ -19,7 +19,7 @@
 	padding: 10px;
 }
 .teacher:HOVER, .student:HOVER {
-	-webkit-animation: mouseover 1s;
+	-webkit-animation: mouseover 0.5s;
 	font-size: 40px;
 }
 
