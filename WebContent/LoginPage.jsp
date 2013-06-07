@@ -7,11 +7,16 @@
 <title>欢迎</title>
 <style type="text/css">
 .teacher,.student{
-	color: #000099;
+	background-color:#000099;
+	position:relative;
+	left:39%;
+	color: #ffffff;
 	display: inline;
 	font-size: 30px;
 	width: 60px;
 	text-decoration: none;
+	margin: 0;
+	padding: 10px;
 }
 .teacher:HOVER, .student:HOVER {
 	-webkit-animation: mouseover 1s;
@@ -33,13 +38,13 @@
 		left: 0;
 	}
 	to{
-		left: 100px;
+		left: 38%;
 	}
 }
 .form{
 	background-color: #b2dfee;
 	position: relative;
-	left: 100px;
+	left: 38%;
 	border: 2px solid #000099;
 	width: 300px;
 	-webkit-animation: loginform 1s;
@@ -53,7 +58,7 @@
 </style>
 </head>
 <body bgcolor="#b2dfee">
-	<h1>学生成绩管理系统</h1>
+	<h1 align="center" style="color:#000099;font-size: 50px">学生成绩管理系统</h1>
 	<%
 		if(request.getParameter("flag")==null){
 	%>
@@ -63,7 +68,7 @@
 		}
 		else{
 	%>
-		<form action="" method="post">
+		<form action="loginServlet?flag=<%= request.getParameter("flag") %>" method="post">
 			<div class="form">
 				<table cellspacing="10px" width="300px">
 					<tr><td colspan="2"><% if(request.getParameter("flag").equals("1")){out.print("老师登陆");}else {out.print("学生登陆");} %></td></tr>

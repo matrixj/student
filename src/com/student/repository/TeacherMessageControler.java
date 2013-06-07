@@ -6,24 +6,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * ÓÃÓÚ²Ù×÷´æ´¢½ÌÊ¦ÐÅÏ¢µÄÊý¾Ý¿â
+ * ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½Ê¦ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
  * @author Hunter
  *
  */
 public class TeacherMessageControler {
 	
-	private Connection connection;	//ÓÃÓÚÁ¬½ÓÊý¾Ý¿â
-	private PreparedStatement SearchStatment;	//²éÕÒÔ¤´¦ÀíÓï¾ä
-	private PreparedStatement InsertStatment;	//²åÈëÔ¤´¦ÀíÓï¾ä
-	private PreparedStatement DeleteStatment;	//É¾³ýÔ¤´¦ÀíÓï¾ä
-	private ResultSet resultSet;	//Êý¾Ý¼¯
+	private Connection connection;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
+	private PreparedStatement SearchStatment;	//ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private PreparedStatement InsertStatment;	//ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private PreparedStatement DeleteStatment;	//É¾ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private ResultSet resultSet;	//ï¿½ï¿½Ý¼ï¿½
 	
 	public TeacherMessageControler(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentsystem","root","a359712032");
-			SearchStatment = connection.prepareStatement("select * from Teacher where Tid like ? and Name like ? and Password like ?");	//²éÑ¯Óï¾ä
-			InsertStatment = connection.prepareStatement("insert into teacher values(?,?,?)");	//²åÈëÓï¾ä
+			SearchStatment = connection.prepareStatement("select * from Teacher where Tid like ? and Name like ? and Password like ?");	//ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½
+			InsertStatment = connection.prepareStatement("insert into teacher values(?,?,?)");	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			DeleteStatment = connection.prepareStatement("delete from teacher where Tid = ?");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -32,9 +32,9 @@ public class TeacherMessageControler {
 	}
 	
 	/**
-	 * ²éÑ¯Ö¸¶¨ÀÏÊ¦ÐÅÏ¢
+	 * ï¿½ï¿½Ñ¯Ö¸ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½Ï¢
 	 */
-	public void SearchTeacher(String Tid,String Name,String Password){
+	public boolean SearchTeacher(String Tid,String Name,String Password){
 		try {
 			if(Password==null)Password = "%";
 			if(Name==null)Name = "%";
@@ -44,17 +44,23 @@ public class TeacherMessageControler {
 			SearchStatment.setString(3, Password);
 			resultSet = SearchStatment.executeQuery();
 			SearchStatment.clearParameters();
+			/*
 			while(resultSet.next()){
+			 
 				System.out.println(resultSet.getString(2));
 			}
+			*/
+			if(resultSet.next())return true;
+			return false;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
 	/**
-	 * ²åÈëÀÏÊ¦ÐÅÏ¢µ½Êý¾Ý¿â
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 	 */
 	public Boolean InsertTeacher(String Tid,String Name,String Password){
 		try {
@@ -72,7 +78,7 @@ public class TeacherMessageControler {
 	}
 	
 	/**
-	 * ´ÓÊý¾Ý¿âÉ¾³ýÖ¸¶¨ÀÏÊ¦ÐÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½É¾ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½Ï¢
 	 */
 	public Boolean DeleteTeacher(String Tid){
 		try {
@@ -86,7 +92,7 @@ public class TeacherMessageControler {
 	}
 	
 	/**
-	 * ¹Ø±ÕÊý¾Ý¿âÁ¬½Ó
+	 * ï¿½Ø±ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void Close(){
 		try {

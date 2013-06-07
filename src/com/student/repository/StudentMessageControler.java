@@ -3,30 +3,30 @@ package com.student.repository;
 import java.sql.*;
 
 /**
- * ���ڲ����洢ѧ��ͳɼ���Ϣ����ݿ�
+ * 操作学生信息数据库
  * @author Hunter
  */
 
 public class StudentMessageControler {
 		
-	private Connection connection;		//����������ݿ�
-	private PreparedStatement SearchStatment;	//����Ԥ�������
-	private PreparedStatement InsertStatment;	//����Ԥ�������
-	private PreparedStatement DeleteStatment;	//ɾ��Ԥ�������
-	private PreparedStatement UpdateStatment;	//�޸�Ԥ�������
-	private PreparedStatement SearchMarkStatement;	//��ѯ���˳ɼ�
-	private PreparedStatement InsertMarkStatement;	//¼����˳ɼ�
-	private ResultSet resultSet;	//��ݼ�
+	private Connection connection;		
+	private PreparedStatement SearchStatment;	
+	private PreparedStatement InsertStatment;	
+	private PreparedStatement DeleteStatment;	
+	private PreparedStatement UpdateStatment;	
+	private PreparedStatement SearchMarkStatement;	
+	private PreparedStatement InsertMarkStatement;	
+	private ResultSet resultSet;	
 	
-	public StudentMessageControler(){		
+	public StudentMessageControler(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentsystem","root","a359712032");
 			SearchStatment = connection.prepareStatement("select * from Student where No like ? and " +
-														"Password like ? and Did like ? and Name like ? and Sex like ?");	//��ѯ���
-			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	//�������
-			DeleteStatment = connection.prepareStatement("delete from Student where No like ? and Did like ?");	//ɾ�����
-			UpdateStatment = connection.prepareStatement("");	//�޸����
+														"Password like ? and Did like ? and Name like ? and Sex like ?");	
+			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	
+			DeleteStatment = connection.prepareStatement("delete from Student where No like ? and Did like ?");	
+			UpdateStatment = connection.prepareStatement("");	
 			SearchMarkStatement = connection.prepareStatement("selete * from Mark where No = ?");
 			InsertMarkStatement = connection.prepareStatement("insert into Mark(No,Suid,Tid,Score) values(?,?,?,?)");
 		} catch (Exception e) {
@@ -36,9 +36,9 @@ public class StudentMessageControler {
 	}
 	
 	/**
-	 * ��ѯָ��ѧ����Ϣ
+	 * 查找功能
 	 */
-	public void SearchStudent(String No,String Password,String Did,String Name,String Sex){
+	public boolean SearchStudent(String No,String Password,String Did,String Name,String Sex){
 		try {
 			if(No==null)No = "%";
 			if(Password==null)Password = "%";
@@ -52,17 +52,22 @@ public class StudentMessageControler {
 			else	SearchStatment.setByte(5, Byte.parseByte(Sex));
 			resultSet = SearchStatment.executeQuery();
 			SearchStatment.clearParameters();
-			while(resultSet.next()){
+			/*
+			 * while(resultSet.next()){
 				System.out.println(resultSet.getString(3));
 			}
+			*/
+			if(resultSet.next())return true;
+			return false;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return false;
 		}			
 	}
 	
 	/**
-	 * ����ѧ����Ϣ����ݿ�
+	 * 插入功能
 	 */
 	public Boolean InsertStudent(String No,String Password,String Did,String Name,String Sex){
 		try {
@@ -82,7 +87,7 @@ public class StudentMessageControler {
 	}
 	
 	/**
-	 * ����ݿ�ɾ��ָ��ѧ����Ϣ
+	 * 删除功能
 	 */
 	private Boolean DeleteStudent(String No,String Did){
 		try {
@@ -99,33 +104,33 @@ public class StudentMessageControler {
 		}
 	}
 	/**
-	 * ���ѧ��ɾ��ѧ��
+	 * 根据学号删除学生信息
 	 */
 	public Boolean DeleteStudentByNo(String No){
 		return DeleteStudent(No, "%");
 	}
 	/**
-	 * ��ݰ༶ɾ��ѧ��
+	 * 根据班级删除学生信息
 	 */
 	public Boolean DeleteStudentByDid(String Did){
 		return DeleteStudent("%", Did);
 	}	
 	/**
-	 * ����ݿ�ɾ������ѧ����Ϣ
+	 * 删除全部学生
 	 */
 	public Boolean DeleteAllStudent(){
 		return DeleteStudent("%","%");
 	}
 	
 	/**
-	 * �޸�ѧ����Ϣ
+	 * 修改学生信息
 	 */
 	public void UpdateStudent(){
 		
 	}
 	
 	/**
-	 * ��ѯ���˳ɼ�
+	 * 查询学生个人成绩
 	 */
 	public void FindStudentMark(String Tid){
 		try{
@@ -143,7 +148,7 @@ public class StudentMessageControler {
 	}
 	
 	/**
-	 * ������˳ɼ�
+	 * 插入学生个人成绩
 	 */
 	public Boolean InsertStudnetMark(String No,String Suid,String Tid,String Score){
 		try {
@@ -162,7 +167,7 @@ public class StudentMessageControler {
 	}
 	
 	/**
-	 * �ر���ݿ�����
+	 * 关闭数据库
 	 */
 	public void Close(){
 		try {
