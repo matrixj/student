@@ -3,30 +3,30 @@ package com.student.repository;
 import java.sql.*;
 
 /**
- * ÓÃÓÚ²Ù×÷´æ´¢Ñ§ÉúºÍ³É¼¨ĞÅÏ¢µÄÊı¾İ¿â
+ * ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½æ´¢Ñ§ï¿½ï¿½Í³É¼ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
  * @author Hunter
  */
 
 public class StudentMessageControler {
 		
-	private Connection connection;		//ÓÃÓÚÁ¬½ÓÊı¾İ¿â
-	private PreparedStatement SearchStatment;	//²éÕÒÔ¤´¦ÀíÓï¾ä
-	private PreparedStatement InsertStatment;	//²åÈëÔ¤´¦ÀíÊı¾İ
-	private PreparedStatement DeleteStatment;	//É¾³ıÔ¤´¦ÀíÓï¾ä
-	private PreparedStatement UpdateStatment;	//ĞŞ¸ÄÔ¤´¦ÀíÓï¾ä
-	private PreparedStatement SearchMarkStatement;	//²éÑ¯¸öÈË³É¼¨
-	private PreparedStatement InsertMarkStatement;	//Â¼Èë¸öÈË³É¼¨
-	private ResultSet resultSet;	//Êı¾İ¼¯
+	private Connection connection;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
+	private PreparedStatement SearchStatment;	//ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private PreparedStatement InsertStatment;	//ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private PreparedStatement DeleteStatment;	//É¾ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private PreparedStatement UpdateStatment;	//ï¿½Ş¸ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private PreparedStatement SearchMarkStatement;	//ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ë³É¼ï¿½
+	private PreparedStatement InsertMarkStatement;	//Â¼ï¿½ï¿½ï¿½ï¿½Ë³É¼ï¿½
+	private ResultSet resultSet;	//ï¿½ï¿½İ¼ï¿½
 	
 	public StudentMessageControler(){		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentsystem","root","a359712032");
 			SearchStatment = connection.prepareStatement("select * from Student where No like ? and " +
-														"Password like ? and Did like ? and Name like ? and Sex like ?");	//²éÑ¯Óï¾ä
-			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	//²åÈëÓï¾ä
-			DeleteStatment = connection.prepareStatement("delete from Student where No like ? and Did like ?");	//É¾³ıÓï¾ä
-			UpdateStatment = connection.prepareStatement("");	//ĞŞ¸ÄÓï¾ä
+														"Password like ? and Did like ? and Name like ? and Sex like ?");	//ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½
+			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			DeleteStatment = connection.prepareStatement("delete from Student where No like ? and Did like ?");	//É¾ï¿½ï¿½ï¿½ï¿½ï¿½
+			UpdateStatment = connection.prepareStatement("");	//ï¿½Ş¸ï¿½ï¿½ï¿½ï¿½
 			SearchMarkStatement = connection.prepareStatement("selete * from Mark where No = ?");
 			InsertMarkStatement = connection.prepareStatement("insert into Mark(No,Suid,Tid,Score) values(?,?,?,?)");
 		} catch (Exception e) {
@@ -36,7 +36,7 @@ public class StudentMessageControler {
 	}
 	
 	/**
-	 * ²éÑ¯Ö¸¶¨Ñ§ÉúĞÅÏ¢
+	 * ï¿½ï¿½Ñ¯Ö¸ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢
 	 */
 	public void SearchStudent(String No,String Password,String Did,String Name,String Sex){
 		try {
@@ -62,7 +62,7 @@ public class StudentMessageControler {
 	}
 	
 	/**
-	 * ²åÈëÑ§ÉúĞÅÏ¢µ½Êı¾İ¿â
+	 * ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
 	 */
 	public Boolean InsertStudent(String No,String Password,String Did,String Name,String Sex){
 		try {
@@ -82,7 +82,7 @@ public class StudentMessageControler {
 	}
 	
 	/**
-	 * ´ÓÊı¾İ¿âÉ¾³ıÖ¸¶¨Ñ§ÉúĞÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½İ¿ï¿½É¾ï¿½ï¿½Ö¸ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢
 	 */
 	private Boolean DeleteStudent(String No,String Did){
 		try {
@@ -99,33 +99,33 @@ public class StudentMessageControler {
 		}
 	}
 	/**
-	 * ¸ù¾İÑ§ºÅÉ¾³ıÑ§Éú
+	 * ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½É¾ï¿½ï¿½Ñ§ï¿½ï¿½
 	 */
 	public Boolean DeleteStudentByNo(String No){
 		return DeleteStudent(No, "%");
 	}
 	/**
-	 * ¸ù¾İ°à¼¶É¾³ıÑ§Éú
+	 * ï¿½ï¿½İ°à¼¶É¾ï¿½ï¿½Ñ§ï¿½ï¿½
 	 */
 	public Boolean DeleteStudentByDid(String Did){
 		return DeleteStudent("%", Did);
 	}	
 	/**
-	 * ´ÓÊı¾İ¿âÉ¾³ıËùÓĞÑ§ÉúĞÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½İ¿ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢
 	 */
 	public Boolean DeleteAllStudent(){
 		return DeleteStudent("%","%");
 	}
 	
 	/**
-	 * ĞŞ¸ÄÑ§ÉúĞÅÏ¢
+	 * ï¿½Ş¸ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢
 	 */
 	public void UpdateStudent(){
 		
 	}
 	
 	/**
-	 * ²éÑ¯¸öÈË³É¼¨
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ë³É¼ï¿½
 	 */
 	public void FindStudentMark(String Tid){
 		try{
@@ -143,7 +143,7 @@ public class StudentMessageControler {
 	}
 	
 	/**
-	 * ²åÈë¸öÈË³É¼¨
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³É¼ï¿½
 	 */
 	public Boolean InsertStudnetMark(String No,String Suid,String Tid,String Score){
 		try {
@@ -162,7 +162,7 @@ public class StudentMessageControler {
 	}
 	
 	/**
-	 * ¹Ø±ÕÊı¾İ¿âÁ¬½Ó
+	 * ï¿½Ø±ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void Close(){
 		try {
