@@ -1,9 +1,11 @@
-package DataBaseControler;
+package com.student.repository;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * ���ڲ����洢��ʦ��Ϣ����ݿ�
@@ -58,6 +60,7 @@ public class TeacherMessageControler {
 			return false;
 		}
 	}
+	
 	
 	/**
 	 * ������ʦ��Ϣ����ݿ�
