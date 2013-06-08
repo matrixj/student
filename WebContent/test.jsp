@@ -17,7 +17,7 @@
 	z-index: -1;
 }
 .title{
-	z-index: 1;
+	z-index: 1;  
 	text-align: center;
 }
 </style>
