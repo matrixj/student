@@ -22,18 +22,19 @@
 	position:relative;
 	top:200px;
 	left:35%;
-	color: #ffffff;
+	color: #b2dfee;
 	font-size: 30px;
 	width: 60px;
 	text-decoration: none;
 	margin: 20px;
 	padding: 10px;
-	border: 2px double #ffffff;
+	border: 3px solid #8b8989;
 	border-radius:15px;
 }
 .teacher:HOVER, .student:HOVER {
 	-webkit-animation: mouseover 0.5s;
 	background-color:#b2dfee;
+	color: #0066ff;
 }
 
 @-webkit-keyframes load{
@@ -47,9 +48,11 @@
 @-webkit-keyframes mouseover{
 	from{
 		background-color:#0066ff;
+		color: #b2dfee
 	}
 	to{
 		background-color:#b2dfee;
+		color: #0066ff;
 	}
 }
 @-webkit-keyframes loginform{
@@ -60,20 +63,12 @@
 		top: 100px;
 	}
 }
-@-webkit-keyframes over{
-	from{
-		z-index:-1;
-	}
-	to{
-		z-index:5;
-	}
-}
 .form{
 	background-color: #b2dfee;
 	position: relative;
 	left: 38%;
 	top: 100px;
-	border: 2px solid #000099;
+	border: 2px solid #8b8989;
 	width: 300px;
 	-webkit-animation: loginform 0.5s;
 	font-size: 20px;

@@ -20,8 +20,7 @@ public class TeacherMessageControler {
 	
 	public TeacherMessageControler(){
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentsystem","root","a359712032");
+			connection = DatabaseFactory.open();
 			SearchStatment = connection.prepareStatement("select * from Teacher where Tid like ? and Name like ? and Password like ?");	//��ѯ���
 			InsertStatment = connection.prepareStatement("insert into teacher values(?,?,?)");	
 			DeleteStatment = connection.prepareStatement("delete from teacher where Tid = ?");
@@ -94,12 +93,13 @@ public class TeacherMessageControler {
 	/**
 	 * 关闭数据库
 	 */
-	public void Close(){
+	public boolean Close(){
 		try {
-			connection.close();
+			return DatabaseFactory.close(connection);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return false;
 		}
 	}
 }
