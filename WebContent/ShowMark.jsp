@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=GB18030"
-    pageEncoding="GB18030"%>
+    pageEncoding="GB18030" import="com.student.bean.model.Mark"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,9 +19,22 @@
 </style>
 </head>
 <body bgcolor="#b2dfee">
+	<%
+		Mark[] marks = (Mark[])request.getAttribute("marks");
+		if(marks==null)out.print("无成绩记录");
+		else{
+	%>
 	<div class="info">
 		<table>
 			<tr><th>科目</th><th>成绩</th><th>任课老师</th></tr>
+			<%
+				for(int i=0;i<marks.length;++i){
+			%>
+				<tr><td><%=marks[i].getSubject() %></td><td><%=marks[i].getScore() %></td><td><%=marks[i].getTeacher().getName() %></td></tr>
+			<%
+				}
+			}
+			%>
 		</table>
 	</div>
 </body>

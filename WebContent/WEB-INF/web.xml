@@ -32,6 +32,14 @@
     <servlet-name>showMarkServlet</servlet-name>
     <url-pattern>/showMarkServlet</url-pattern>
   	</servlet-mapping>
+  	 <servlet>
+    <servlet-name>showInfoServlet</servlet-name>
+    <servlet-class>com.student.servlet.ShowInfoServlet</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+    <servlet-name>showInfoServlet</servlet-name>
+    <url-pattern>/showInfoServlet</url-pattern>
+  	</servlet-mapping>
  	&db_config;
 
 </web-app>

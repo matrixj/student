@@ -32,7 +32,7 @@ public class StudentMessageControler {
 			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	
 			DeleteStatment = connection.prepareStatement("delete from Student where No like ? and Did like ?");	
 			UpdateStatment = connection.prepareStatement("update Student set password = ? where No = ? ");	
-			SearchMarkStatement = connection.prepareStatement("selete * from Mark where No = ?");
+			SearchMarkStatement = connection.prepareStatement("select * from Mark where No = ?");
 			InsertMarkStatement = connection.prepareStatement("insert into Mark(No,Suid,Tid,Score) values(?,?,?,?)");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -176,9 +176,9 @@ public class StudentMessageControler {
 				Subject sub = new Subject();
 				sub.setSuid(resultSet.getInt(3));
 				m.setSubject(sub);
-				Teacher tea = new Teacher();
-				tea.setTid(resultSet.getInt(4));
-				m.setTeacher(tea);
+				TeacherMessageControler tmc = new TeacherMessageControler();
+				Teacher[] tea = tmc.SearchTeacher(Integer.toString(resultSet.getInt(4)), null, null);
+				m.setTeacher(tea[0]);
 				m.setScore(resultSet.getBigDecimal(5).doubleValue());
 				marks[i++] = m;
 			}

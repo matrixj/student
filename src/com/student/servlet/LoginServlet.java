@@ -20,6 +20,7 @@ public class LoginServlet extends HttpServlet{
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//super.doPost(req, resp);
+		resp.setContentType("text/html; charset=gb2312");
 		String ID = req.getParameter("ID");
 		String password = req.getParameter("password");
 		String flag = req.getParameter("flag");
@@ -28,7 +29,8 @@ public class LoginServlet extends HttpServlet{
 			StudentMessageControler smc = new StudentMessageControler();
 			if(smc.SearchStudent(ID,password,null,null,null)!=null){
 				req.getSession().setAttribute("No", ID);
-				req.getRequestDispatcher("").forward(req, resp);
+				smc.Close();
+				req.getRequestDispatcher("test.jsp").forward(req, resp);
 			}
 			else{
 				out.print("fail");
@@ -38,7 +40,8 @@ public class LoginServlet extends HttpServlet{
 			TeacherMessageControler tmc = new TeacherMessageControler();
 			if(tmc.SearchTeacher(ID,null,password)!=null){
 				req.getSession().setAttribute("No", ID);
-				req.getRequestDispatcher("").forward(req, resp);
+				tmc.Close();
+				req.getRequestDispatcher("test.jsp").forward(req, resp);
 			}
 			else{
 				out.print("fail");
