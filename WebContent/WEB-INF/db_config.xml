@@ -9,7 +9,7 @@
 		</init-param>
 		<init-param>
 			<param-name>DBConnStr</param-name>
-			<param-value>jdbc:mysql://first_lin:3306/studentmanager?useUnicode=true</param-value>
+			<param-value>jdbc:mysql://localhost/studentmanager?useUnicode=true</param-value>
 		</init-param>
 		<init-param>
 			<param-name>user</param-name>
@@ -17,7 +17,7 @@
 		</init-param>
 		<init-param>
 			<param-name>password</param-name>
-			<param-value>linyaohua</param-value>
+			<param-value>123456</param-value>
 	  	</init-param>
   	<load-on-startup>1</load-on-startup>
   </servlet>
