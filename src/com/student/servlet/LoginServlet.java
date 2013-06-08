@@ -2,14 +2,7 @@ package com.student.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
-import javax.print.attribute.standard.DateTimeAtCreation;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.student.repository.*;
 
+/**
+ * 用于验证登陆信息
+ */
 public class LoginServlet extends HttpServlet{
 
-	/**
-	 * 用于验证登陆信息
-	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -34,7 +27,8 @@ public class LoginServlet extends HttpServlet{
 		if(flag.equals("0")){
 			StudentMessageControler smc = new StudentMessageControler();
 			if(smc.SearchStudent(ID,password,null,null,null)){
-				out.print("success");
+				req.getSession().setAttribute("No", ID);
+				req.getRequestDispatcher("").forward(req, resp);
 			}
 			else{
 				out.print("fail");
@@ -43,7 +37,10 @@ public class LoginServlet extends HttpServlet{
 		else{
 			TeacherMessageControler tmc = new TeacherMessageControler();
 			if(tmc.SearchTeacher(ID,null,password)){
-				out.print("success");
+				req.getSession().setAttribute("No", ID);
+				req.getRequestDispatcher("").forward(req, resp);
+			}
+			else{
 				out.print("fail");
 			}
 		}
