@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.student.bean.model.Mark;
+import com.student.bean.model.Teacher;
+
 /**
  * 操作教师信息数据库
  * @author Hunter
@@ -34,7 +37,8 @@ public class TeacherMessageControler {
 	/**
 	 * 查找功能
 	 */
-	public boolean SearchTeacher(String Tid,String Name,String Password){
+	public Teacher[] SearchTeacher(String Tid,String Name,String Password){
+		Teacher[] teachers;
 		try {
 			if(Password==null)Password = "%";
 			if(Name==null)Name = "%";
@@ -44,18 +48,22 @@ public class TeacherMessageControler {
 			SearchStatment.setString(3, Password);
 			resultSet = SearchStatment.executeQuery();
 			SearchStatment.clearParameters();
-			/*
+			resultSet.last();
+			teachers = new Teacher[resultSet.getRow()-1];
+			resultSet.first();
+			int i = 0;
 			while(resultSet.next()){
-			 
-				System.out.println(resultSet.getString(2));
+			 Teacher tea = new Teacher();
+			 tea.setTid(resultSet.getInt(1));
+			 tea.setName(resultSet.getString(2));
+			 tea.setPassword(resultSet.getString(3));
+			 teachers[i] = tea;
 			}
-			*/
-			if(resultSet.next())return true;
-			return false;
+			return teachers;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 	
