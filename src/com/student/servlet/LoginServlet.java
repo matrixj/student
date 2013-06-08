@@ -20,8 +20,6 @@ public class LoginServlet extends HttpServlet{
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//super.doPost(req, resp);
-		req.setCharacterEncoding("gb2312");
-		resp.setContentType("text/html; charset=gb2312");
 		String ID = req.getParameter("ID");
 		String password = req.getParameter("password");
 		String flag = req.getParameter("flag");

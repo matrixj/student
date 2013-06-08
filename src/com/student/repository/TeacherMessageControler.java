@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * 操作教师信息数据库
@@ -57,6 +58,7 @@ public class TeacherMessageControler {
 			return false;
 		}
 	}
+	
 	
 	/**
 	 * 插入
