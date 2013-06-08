@@ -25,7 +25,7 @@ public class StudentMessageControler {
 														"Password like ? and Did like ? and Name like ? and Sex like ?");	
 			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	
 			DeleteStatment = connection.prepareStatement("delete from Student where No like ? and Did like ?");	
-			UpdateStatment = connection.prepareStatement("");	
+			UpdateStatment = connection.prepareStatement("update Student set password = ? where No = ?");	
 			SearchMarkStatement = connection.prepareStatement("selete * from Mark where No = ?");
 			InsertMarkStatement = connection.prepareStatement("insert into Mark(No,Suid,Tid,Score) values(?,?,?,?)");
 		} catch (Exception e) {
@@ -122,10 +122,19 @@ public class StudentMessageControler {
 	}
 	
 	/**
-	 * 修改学生信息
+	 * 修改学生密码
 	 */
-	public void UpdateStudent(){
-		
+	public boolean UpdateStudentPassword(String No,String Password){
+		try {
+			UpdateStatment.setString(1, Password);
+			UpdateStatment.setString(2, No);
+			UpdateStatment.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	/**
