@@ -1,6 +1,5 @@
 package com.student.repository;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,24 +7,23 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- * ���ڲ����洢��ʦ��Ϣ����ݿ�
+ * 操作教师信息数据库
  * @author Hunter
  *
  */
 public class TeacherMessageControler {
 	
-	private Connection connection;	//����������ݿ�
-	private PreparedStatement SearchStatment;	//����Ԥ�������
-	private PreparedStatement InsertStatment;	//����Ԥ�������
-	private PreparedStatement DeleteStatment;	//ɾ��Ԥ�������
-	private ResultSet resultSet;	//��ݼ�
+	private Connection connection;	
+	private PreparedStatement SearchStatment;	
+	private PreparedStatement InsertStatment;	
+	private PreparedStatement DeleteStatment;	
+	private ResultSet resultSet;	
 	
 	public TeacherMessageControler(){
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentsystem","root","a359712032");
+			connection = DatabaseFactory.open();
 			SearchStatment = connection.prepareStatement("select * from Teacher where Tid like ? and Name like ? and Password like ?");	//��ѯ���
-			InsertStatment = connection.prepareStatement("insert into teacher values(?,?,?)");	//�������
+			InsertStatment = connection.prepareStatement("insert into teacher values(?,?,?)");	
 			DeleteStatment = connection.prepareStatement("delete from teacher where Tid = ?");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -34,7 +32,7 @@ public class TeacherMessageControler {
 	}
 	
 	/**
-	 * ��ѯָ����ʦ��Ϣ
+	 * 查找功能
 	 */
 	public boolean SearchTeacher(String Tid,String Name,String Password){
 		try {
@@ -63,7 +61,7 @@ public class TeacherMessageControler {
 	
 	
 	/**
-	 * ������ʦ��Ϣ����ݿ�
+	 * 插入
 	 */
 	public Boolean InsertTeacher(String Tid,String Name,String Password){
 		try {
@@ -81,7 +79,7 @@ public class TeacherMessageControler {
 	}
 	
 	/**
-	 * ����ݿ�ɾ��ָ����ʦ��Ϣ
+	 * 删除功能
 	 */
 	public Boolean DeleteTeacher(String Tid){
 		try {
@@ -95,14 +93,15 @@ public class TeacherMessageControler {
 	}
 	
 	/**
-	 * �ر���ݿ�����
+	 * 关闭数据库
 	 */
-	public void Close(){
+	public boolean Close(){
 		try {
-			connection.close();
+			return DatabaseFactory.close(connection);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return false;
 		}
 	}
 }

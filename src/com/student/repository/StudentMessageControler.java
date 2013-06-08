@@ -20,8 +20,7 @@ public class StudentMessageControler {
 	
 	public StudentMessageControler(){
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentsystem","root","a359712032");
+			connection = DatabaseFactory.open();
 			SearchStatment = connection.prepareStatement("select * from Student where No like ? and " +
 														"Password like ? and Did like ? and Name like ? and Sex like ?");	
 			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	
@@ -43,13 +42,13 @@ public class StudentMessageControler {
 			if(No==null)No = "%";
 			if(Password==null)Password = "%";
 			if(Name==null)Name = "%";
+			if(Sex==null)Sex = "%";
 			SearchStatment.setString(1, No);
 			SearchStatment.setString(2, Password);
 			if(Did==null)	SearchStatment.setString(3, "%");
 			else	SearchStatment.setInt(3, Integer.parseInt(Did));
 			SearchStatment.setString(4, Name);
-			if(Sex==null)	SearchStatment.setString(5, "%");
-			else	SearchStatment.setByte(5, Byte.parseByte(Sex));
+			SearchStatment.setString(5, "%");
 			resultSet = SearchStatment.executeQuery();
 			SearchStatment.clearParameters();
 			/*
@@ -169,12 +168,13 @@ public class StudentMessageControler {
 	/**
 	 * 关闭数据库
 	 */
-	public void Close(){
+	public boolean Close(){
 		try {
-			connection.close();
+			return DatabaseFactory.close(connection);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return false;
 		}
 	}
 }
