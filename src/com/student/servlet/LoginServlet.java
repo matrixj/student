@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet{
 		PrintWriter out = resp.getWriter();
 		if(flag.equals("0")){
 			StudentMessageControler smc = new StudentMessageControler();
-			if(smc.SearchStudent(ID,password,null,null,null)){
+			if(smc.SearchStudent(ID,password,null,null,null)!=null){
 				req.getSession().setAttribute("No", ID);
 				req.getRequestDispatcher("").forward(req, resp);
 			}
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet{
 		}
 		else{
 			TeacherMessageControler tmc = new TeacherMessageControler();
-			if(tmc.SearchTeacher(ID,null,password)){
+			if(tmc.SearchTeacher(ID,null,password)!=null){
 				req.getSession().setAttribute("No", ID);
 				req.getRequestDispatcher("").forward(req, resp);
 			}

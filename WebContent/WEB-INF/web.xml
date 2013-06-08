@@ -24,6 +24,14 @@
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/loginServlet</url-pattern>
   	</servlet-mapping>
+  	<servlet>
+    <servlet-name>showMarkServlet</servlet-name>
+    <servlet-class>com.student.servlet.ShowMarkServlet</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+    <servlet-name>showMarkServlet</servlet-name>
+    <url-pattern>/showMarkServlet</url-pattern>
+  	</servlet-mapping>
  	&db_config;
 
 </web-app>
