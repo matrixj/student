@@ -25,7 +25,7 @@
 		<span class="function_list">3、查看个人信息</span>
 	</div>
 	<div class="row home_tips">
-		<span class="function_list">4、修改个人信息</span>
+		<span class="function_list">4、修改个人信息 </span>
 	</div>
 </body>
 </html>
