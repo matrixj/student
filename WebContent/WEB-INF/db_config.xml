@@ -2,7 +2,7 @@
   <!-- 数据库的配置文件，按照自己的需求修改 -->
   <servlet>
   	<servlet-name>InitServlet</servlet-name>
-  	<servlet-class>com.student.servlet.InitServlet</servlet-class>
+  	<servlet-class>com.student.servlet.InitServlet </servlet-class>
 	  	<init-param>
 			<param-name>DBDriver</param-name>
 			<param-value>com.mysql.jdbc.Driver</param-value>
