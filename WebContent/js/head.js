@@ -21,6 +21,14 @@ function onHeadBarLeave(ele) {
 	ele.style.color = "black";
 }
 
+function onLogoutHover(ele) {
+	ele.style.color = "red";
+}
+
+function onLogoutLeave(ele) {
+	ele.style.color = "black";
+}
+
 
 function addBackground() {
 	window.onload = setBackground;
@@ -32,7 +40,7 @@ function setBackground() {
 	var htm = body.innerHTML;
 	var index = htm.indexOf(headPage.innerHTML);
 	body.innerHTML = htm.substring(index + 1, headPage.innerHTML.length + index + 6) + 
-	"<div class=\"div_bg\">" + 
+	"<div class=\"div_bg\"><div class=\"nothing\"></div>" + 
 	htm.substring(headPage.innerHTML.length + index + 7, htm.length) + 
 	"</div></body>";
 }

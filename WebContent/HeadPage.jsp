@@ -16,7 +16,7 @@
 			<div class="float_right">
 				<span>你好，</span>
 				<a href="">屌丝</a>
-				<a href="" class="float_right">退出登录</a>
+				<a href="" class="float_right" onmouseover="onLogoutHover(this);" onmouseout="onLogoutLeave(this);">退出登录</a>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -24,7 +24,7 @@
 	
 	<div id="div_title_bar">
 		<ul class="ul_title">
-			<li class="li_title"><a class="a_title" href="">首页</a></li>
+			<li class="li_title"><a class="a_title" href="home">首页</a></li>
 			<li class="li_title"><a class="a_title" href="">成绩查询</a></li>
 			<li class="li_title"><a class="a_title" href="">成绩统计</a></li>
 			<li class="li_title"><a class="a_title" href="">个人资料</a></li>
