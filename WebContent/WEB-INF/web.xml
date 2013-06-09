@@ -43,6 +43,16 @@
     <servlet-name>showMarkServlet</servlet-name>
     <url-pattern>/showMarkServlet</url-pattern>
   	</servlet-mapping>
+  	
+  	<servlet>
+  		<servlet-name>homeServlet</servlet-name>
+  		<servlet-class>com.student.servlet.HomeServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>homeServlet</servlet-name>
+  		<url-pattern>/home</url-pattern>
+  	</servlet-mapping>
+  	
  	&db_config;
 
 </web-app>

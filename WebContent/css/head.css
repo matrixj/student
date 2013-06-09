@@ -1,0 +1,62 @@
+.headTips {
+	margin: 0;
+	background-color: #F5FFE8;
+	filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+}
+
+.hello {
+	margin: 0 auto;
+	max-width: 800px;
+	font-size: large;
+	padding: 7px;
+}
+
+.hello div {
+	width: 600px;
+}
+
+.hello div a {
+	text-decoration: none;
+	color: black;
+}
+
+#div_title_bar {
+	width: 800px;
+	margin: 0 auto;
+	background-color: #6B8EAE;
+}
+
+.ul_title {
+	padding-top: 6px;
+	height: 30px;
+	position: relative;
+}
+
+.li_title {
+	list-style: none;
+	width: 160px;
+	position: relative;
+	float: left;
+	text-align: center;
+}
+
+.li_title a {
+	text-decoration: none;
+	color: black;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	text-align: center;
+}
+
+.div_bg {
+	background-color: #84C1FF;
+	width: 800px;
+	margin: 0 auto;
+	min-height: 460px;
+}
+

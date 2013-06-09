@@ -30,6 +30,9 @@ public class JspFilter implements Filter {
 		if(!req.getServletPath().endsWith("jsp")) {
 			arg2.doFilter(arg0, arg1);
 		}
+		else {
+			req.getRequestDispatcher("home").forward(arg0, arg1);
+		}
 	}
 
 	@Override
