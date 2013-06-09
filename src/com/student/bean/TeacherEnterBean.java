@@ -24,5 +24,11 @@ public class TeacherEnterBean {
     public String[]  Class(){
     	return teacherEnter.GetAllClass();
     }
+    public String[][] Student(String grade,String _class,String major){
+    	return teacherEnter.SearchStudent(grade,_class, major);
+    }
+    public int Did(String grade,String _class,String major){
+    	return teacherEnter.SearchDid(grade, _class, major);
+    }
   
 }
