@@ -7,6 +7,7 @@
 <link type="text/css" href="css/head.css" rel="stylesheet" />
 <link type="text/css" href="css/common.css" rel="stylesheet" />
 <script type="text/javascript" src="js/head.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
 <title>成绩管理系统</title>
 </head>
 <div id="div_headPage">
@@ -33,7 +34,6 @@
 	
 	<script type="text/javascript">
 		setHeadBarMouse();
-		addBackground();
 	</script>
 	
 </div>

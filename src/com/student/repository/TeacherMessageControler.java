@@ -1,12 +1,13 @@
 package com.student.repository;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.student.bean.model.Mark;
+import com.student.bean.model.Subject;
 import com.student.bean.model.Teacher;
 
 /**
@@ -99,6 +100,38 @@ public class TeacherMessageControler {
 			return false;
 		}
 	}
+	
+	
+	/**
+	 * 根据老师的id获取该老师所教的课程
+	 * @param tid
+	 * @return
+	 */
+	public List<Subject> getTeacherSubject(String tid) {
+		try {
+			Statement state = connection.createStatement();
+			resultSet = state.executeQuery(
+					"SELECT * FROM subject WHERE Suid IN " +
+					"(SELECT Suid FROM teacher_subject WHERE Tid=" + tid + ");");
+			List<Subject> subs = null;
+			if(resultSet.first()) {
+				subs = new ArrayList<Subject>();
+				do {
+					Subject sub = new Subject();
+					sub.setSuid(resultSet.getInt("Suid"));
+					sub.setName(resultSet.getString("Name"));
+					subs.add(sub);
+				} while(resultSet.next());
+			}
+			resultSet.close();
+			state.close();
+			return subs;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	/**
 	 * 关闭数据库

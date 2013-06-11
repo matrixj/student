@@ -1,3 +1,18 @@
+init(setBackground);
+
+function init(func) {
+	var oldLoad = window.onload;
+	if(typeof window.onload != "function") {
+		window.onload = func;
+	}
+	else {
+		window.onload = function() {
+			oldLoad();
+			func();
+		};
+	}
+}
+
 function setHeadBarMouse() {
 	var as = document.getElementsByTagName("a");
 	for(var i = 0; i < as.length; i++) {
@@ -27,11 +42,6 @@ function onLogoutHover(ele) {
 
 function onLogoutLeave(ele) {
 	ele.style.color = "black";
-}
-
-
-function addBackground() {
-	window.onload = setBackground;
 }
 
 function setBackground() {

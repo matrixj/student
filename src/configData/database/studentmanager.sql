@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: studentmanager
 Target Host: localhost
 Target Database: studentmanager
-Date: 2013/6/8 19:18:13
+Date: 2013/6/10 21:45:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -12,7 +12,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- Table structure for department
 -- ----------------------------
 CREATE TABLE `department` (
-  `Did` int(11) NOT NULL,
+  `Did` int(11) NOT NULL auto_increment,
   `Major` varchar(100) NOT NULL,
   `Grade` varchar(100) NOT NULL,
   `Class` varchar(100) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `student` (
 -- Table structure for subject
 -- ----------------------------
 CREATE TABLE `subject` (
-  `Suid` int(11) NOT NULL,
+  `Suid` int(11) NOT NULL auto_increment,
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY  (`Suid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -64,7 +64,7 @@ CREATE TABLE `subject` (
 -- Table structure for teacher
 -- ----------------------------
 CREATE TABLE `teacher` (
-  `Tid` int(11) NOT NULL,
+  `Tid` int(11) NOT NULL auto_increment,
   `Name` varchar(100) NOT NULL,
   `Password` varchar(16) NOT NULL,
   PRIMARY KEY  (`Tid`)
@@ -78,8 +78,8 @@ CREATE TABLE `teacher_subject` (
   `Tid` int(11) NOT NULL,
   PRIMARY KEY  (`Suid`,`Tid`),
   KEY `FK_teacher_subject_tid` (`Tid`),
-  CONSTRAINT `FK_teacher_subject_tid` FOREIGN KEY (`Tid`) REFERENCES `teacher` (`Tid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_teacher_subject_suid` FOREIGN KEY (`Suid`) REFERENCES `subject` (`Suid`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_teacher_subject_suid` FOREIGN KEY (`Suid`) REFERENCES `subject` (`Suid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_teacher_subject_tid` FOREIGN KEY (`Tid`) REFERENCES `teacher` (`Tid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -87,3 +87,4 @@ CREATE TABLE `teacher_subject` (
 -- ----------------------------
 INSERT INTO `department` VALUES ('2', 'math', '2010', '1');
 INSERT INTO `student` VALUES ('1', '2', 'ben', 'm', '123');
+INSERT INTO `teacher` VALUES ('1', '朱凯', '123456');

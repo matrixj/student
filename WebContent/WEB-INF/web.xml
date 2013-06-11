@@ -55,6 +55,15 @@
   		<url-pattern>/home</url-pattern>
   	</servlet-mapping>
   	
+  	<servlet>
+  		<servlet-name>inputMarkServlet</servlet-name>
+  		<servlet-class>com.student.servlet.InputMarkServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>inputMarkServlet</servlet-name>
+  		<url-pattern>/input_mark</url-pattern>
+  	</servlet-mapping>
+  	
  	&db_config;
 
 </web-app>
