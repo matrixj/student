@@ -30,7 +30,7 @@
 			<%
 				for(int i=0;i<marks.length;++i){
 			%>
-				<tr><td><%=marks[i].getSubject() %></td><td><%=marks[i].getScore() %></td><td><%=marks[i].getTeacher().getName() %></td></tr>
+				<tr><td><%=marks[i].getSubject().getName() %></td><td><%=marks[i].getScore() %></td><td><%=marks[i].getTeacher().getName() %></td></tr>
 			<%
 				}
 			}
