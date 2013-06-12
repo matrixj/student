@@ -55,9 +55,10 @@ public class TeacherEnterHandle {
 	    	int index=0;
 	    	try{
 	    	while( rs.next()){
-	    		if(hs.add(rs.getString(3)))
+	    		if(hs.add(rs.getString(3))){
 	    		grade[index] =  rs.getString(3);
 	    		index++;
+	    		}
 	    	}
 	    	
 	    	}
@@ -244,5 +245,20 @@ public class TeacherEnterHandle {
 	    	catch(Exception e){
 	    		e.printStackTrace();
 	    	}
+	    }
+	    /*
+	     * insert new class*
+	     * param    all
+	     */
+	    public void DelStudent(String no){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("delete from student where No = ?");
+	    	    state.setString(1, no);
+	    	    state.executeUpdate();
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    	
 	    }
 }

@@ -14,13 +14,10 @@ public class DatabaseFactory {
 	 */
 	public static Connection open() {
 		try {
-			Class.forName(CommonData.Database.DBDriver);
-			Connection connection = 
-					DriverManager.getConnection(
-							CommonData.Database.DBConnStr, 
-							CommonData.Database.user, 
-							CommonData.Database.password);
-			return connection;
+			 Class.forName("com.mysql.jdbc.Driver");
+			   String url="jdbc:mysql://localhost:3306/studentmanager?useUnicode=true&characterEncoding=gb2312";
+			   Connection con=DriverManager.getConnection(url,"root","linyaohua");
+			return con;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
