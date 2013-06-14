@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.student.bean.model.Student;
 import com.student.bean.model.Subject;
 import com.student.repository.DepartmentMessageControler;
+import com.student.repository.StudentMessageControler;
 import com.student.repository.TeacherMessageControler;
 import com.student.util.JsonUtil;
 
@@ -40,6 +42,7 @@ public class InputMarkServlet extends HttpServlet {
 		String grade = req.getParameter("grade");
 		String cls = req.getParameter("class");
 		if(subject != null && major != null && grade != null && cls != null) {
+			getStudentPage(req, resp, subject, major, grade, cls);
 		}
 		else {
 			if(subject != null && major != null && 
@@ -120,6 +123,21 @@ public class InputMarkServlet extends HttpServlet {
 				subject, major, tid, grade);
 		dmc.close();
 		JsonUtil.sendJson(out, "classes", classes);
+		out.flush();
+		out.close();
+	}
+	
+	private void getStudentPage(
+			HttpServletRequest req, HttpServletResponse resp, 
+			String subject, String major, 
+			String grade, String cls) throws IOException {
+		PrintWriter out = resp.getWriter();
+		StudentMessageControler smc = new StudentMessageControler();
+		List<Student> students = smc.findStudentByClass(major, grade, cls);
+		smc.Close();
+		JsonUtil.sendJson(out, "students", students, "subject", subject);
+		out.flush();
+		out.close();
 	}
 	
 }

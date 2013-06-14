@@ -84,7 +84,9 @@
 	</div>
 	
 	<div class="row">
-		<a href="javascript:;" class="a_btn">选择录入</a>
+		<a href="javascript:;" class="a_btn" onclick="onInputClick();">选择录入</a>
 	</div>
+	
+	<div class="row" id="students"></div>
 </body>
 </html>

@@ -19,3 +19,13 @@
 	padding-top: 3px;
 	padding-bottom: 3px;
 }
+
+.table_student tr td {
+	width: 150px;
+	height: 30px;
+}
+
+.table_student tr td input {
+	text-align: center;
+	width: 80px;
+}
