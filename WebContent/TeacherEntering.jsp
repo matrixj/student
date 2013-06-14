@@ -67,7 +67,7 @@
              %>
              </select>
          &nbsp&nbsp&nbsp&nbsp
-         <input type="submit" value="确定" > &nbsp&nbsp <a href="CreateClass.jsp"  >创建班级</a></center>
+         <input type="submit" value="确定" > &nbsp&nbsp <a href="TeacherEnterSevlet"  >创建班级</a></center>
          </form>
          <%  
        if(isRight == "right"){
@@ -79,7 +79,7 @@
           <form action="TeacherUpdateMSGServlet" method="post">
           <center>
          <table style="border-style: solid;" id="test">
-         <tr><td>姓名</td><td>性别</td><td>学号</td><td>密码</td></tr>
+         <tr><td>姓名</td><td class="s">性别</td><td>学号</td><td>密码</td><td>操作</td></tr>
          <%
             i = 0;
          String[][] msg = teacher.Student(grade_show, class_show,major_show);
@@ -91,7 +91,8 @@
             <td><input type="text" value="<%=msg[i][1]%>" name="name"+<%=i%>></td>
             <td><input type="text" value="<%=msg[i][2]%>"  name="sex"+<%=i%>></td>
             <td><input type="text" value="<%=msg[i][0]%>"  name="no"+<%=i%>></td>
-            <td><input type="text" value="<%=msg[i][3]%>"  name="pw"+<%=i%>></td></tr>	   
+            <td><input type="text" value="<%=msg[i][3]%>"  name="pw"+<%=i%>></td>
+            <td><a href="TeacherUpdateMSGServlet?del=<%=msg[i][0]%>">删除</a></td></tr>	   
             	   <%
             	   i++;
                }
@@ -104,39 +105,38 @@
          %>
        
          </table>
-       <input type="submit" value="提交"><input type="button" value="增加一行" onclick="javascript:insert_row()" />
+       <input type="submit" value="提交"><input type="button" value="增加一行" onclick="javascript:addtr()" />
          </center>
          </form>
          
       <% }
       %>
-         <script type="text/javascript">
-         var optionsNum = 1;	
-         var i = "${requestScope.tableNum}";				//插入行		
-         function insert_row(){			
-        	 var itemTable = document.getElementById("test");	
-        	 i = itemTable.rows.length ;
-        	 i++;		
-        	 R = itemTable.insertRow()	;	
-        	 R.id =  i;						//序号	
-        	 C=R.insertCell()	;		
-        	 C.align = "center";		
-        		
-        	 C.innerHTML="<input class=\"text\" type=\"text\"  name=\"pw"+i+"\"   />";	
-        	 C=R.insertCell()	;		
-        	 C.align = "center";		
-        	
-        	 C.innerHTML="<input class=\"text\" type=\"text\" name=\"no"+i+"\"   />";	
-        	 C=R.insertCell()	;		
-        	 C.align = "center";		
-        		
-        	 C.innerHTML="<input class=\"text\" type=\"text\"  name=\"sex"+i+"\" />";	
-        	 C=R.insertCell()	;		
-        	 C.align = "center";		
-        	
-        	 C.innerHTML="<input class=\"text\" type=\"text\"  name=\"name"+i+"\" />";
-         }
-         </script>
+         <script language="javascript" type="text/javascript">    
+         var i = "${requestScope.tableNum}"; 
+     function addtr(){ //增加表格    
+        var tem = ++i;    
+        var t = document.getElementById("test");    
+        var row = t.insertRow(t.rows.length);     
+        row.id=tem;    
+        var cell1 = row.insertCell(0);        
+        var cell2 = row.insertCell(1);      
+        var cell3 = row.insertCell(2);      
+        var cell4 = row.insertCell(3);    
+        cell4.innerHTML="<input class=\"text\" type=\"text\"  name=\"pw"+i+"\"   />";    
+        cell3.innerHTML="<input class=\"text\" type=\"text\" name=\"no"+i+"\"   />";	
+        cell2.innerHTML="<input class=\"text\" type=\"text\"  name=\"sex"+i+"\" />";    
+        cell1.innerHTML="<input class=\"text\" type=\"text\"  name=\"name"+i+"\" />";
+        document.f.hid.value=id;    
+    }    
+        
+    function deltr(){  //删除表格    
+        var tdel = document.getElementById("tab");    
+        tdel.deleteRow(id+2);    
+        id--;    
+        document.f.hid.value=id;    
+    }    
+</script>   
+         
         
 </body>
 </html>

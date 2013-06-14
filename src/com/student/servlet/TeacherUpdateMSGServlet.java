@@ -34,6 +34,19 @@ public class TeacherUpdateMSGServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		TeacherEnterHandle teacherEn = new TeacherEnterHandle();
+		request.setCharacterEncoding("UTF-8");
+		String grade_show =(String)request.getSession().getAttribute("Grade");
+		String class_show =(String)request.getSession().getAttribute("Class");
+		String major_show =(String)request.getSession().getAttribute("Major");
+		String del = request.getParameter("del");
+		teacherEn.DelStudent(del);
+		RequestDispatcher rd= request.getRequestDispatcher("/TeacherEntering.jsp");
+        request.setAttribute("isRight", "right");
+        request.setAttribute("Grade", grade_show);
+        request.setAttribute("Class",class_show);
+        request.setAttribute("Major",major_show);
+        rd.forward(request, response);
 	}
 
 	/**
@@ -54,7 +67,7 @@ public class TeacherUpdateMSGServlet extends HttpServlet {
 			String sex = (String)request.getParameter("sex"+i);
 			String no = (String)request.getParameter("no"+i);
 			String pw = (String)request.getParameter("pw"+i);
-			if(no!= null){
+			if(no != null&& no !=""){
 		if(teacherEn.isExist_student(no)){
 			teacherEn.UpdateStudent(no, Did, sex, name, pw);
 		}
