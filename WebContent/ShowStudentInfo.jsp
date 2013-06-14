@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=GB18030"
     pageEncoding="GB18030"%>
+<%@ page import="com.student.bean.model.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,11 +47,12 @@
 </head>
 <body bgcolor="#b2dfee">
 	<div class="info">
+	<% Student stu = (Student)session.getAttribute("Student"); %>
 		<table cellpadding="40px">
-			<tr><td>学号:</td><td>201031000101</td></tr>
-			<tr><td>姓名:</td><td>hunter</td></tr>			
-			<tr><td>班级:</td><td>software</td></tr>
-			<tr><td>性别:</td><td>male</td></tr>
+			<tr><td>学号:</td><td><%=stu.getNo() %></td></tr>
+			<tr><td>姓名:</td><td><%=stu.getName() %></td></tr>			
+			<tr><td>班级:</td><td><%=stu.getDepartment().getCls() %></td></tr>
+			<tr><td>性别:</td><td><%=stu.getSex() %></td></tr>
 		</table>
 		<a href="ModifyStudentPwd.jsp">修改密码</a>
 	</div>

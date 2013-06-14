@@ -26,7 +26,7 @@ public class TeacherMessageControler {
 	public TeacherMessageControler(){
 		try {
 			connection = DatabaseFactory.open();
-			SearchStatment = connection.prepareStatement("select * from Teacher where Tid like ? and Name like ? and Password like ?");	//��ѯ���
+			SearchStatment = connection.prepareStatement("select * from Teacher where Tid like ? and Name like ? and Password like ?");	
 			InsertStatment = connection.prepareStatement("insert into teacher values(?,?,?)");	
 			DeleteStatment = connection.prepareStatement("delete from teacher where Tid = ?");
 		} catch (Exception e) {
@@ -45,25 +45,30 @@ public class TeacherMessageControler {
 			if(Name==null)Name = "%";
 			if(Tid==null)	SearchStatment.setString(1, "%");
 			else SearchStatment.setInt(1, Integer.parseInt(Tid));
+			//else SearchStatment.setString(1, Tid);
 			SearchStatment.setString(2, Name);
 			SearchStatment.setString(3, Password);
 			resultSet = SearchStatment.executeQuery();
 			SearchStatment.clearParameters();
 			resultSet.last();
-			teachers = new Teacher[resultSet.getRow()-1];
-			resultSet.first();
-			int i = 0;
-			while(resultSet.next()){
-			 Teacher tea = new Teacher();
-			 tea.setTid(resultSet.getInt(1));
-			 tea.setName(resultSet.getString(2));
-			 tea.setPassword(resultSet.getString(3));
-			 teachers[i] = tea;
+			if(resultSet.getRow()>0){
+				teachers = new Teacher[resultSet.getRow()];
+				resultSet.first();
+				int i = 0;
+				do{
+					Teacher tea = new Teacher();
+					tea.setTid(resultSet.getInt(1));
+					tea.setName(resultSet.getString(2));
+					tea.setPassword(resultSet.getString(3));
+					teachers[i++] = tea;
+				}while(resultSet.next());
+				return teachers;
 			}
-			return teachers;
+			return null;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			System.out.println("yes");
 			return null;
 		}
 	}

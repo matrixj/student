@@ -34,7 +34,7 @@ public class StudentMessageControler {
 			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	
 			DeleteStatment = connection.prepareStatement("delete from Student where No like ? and Did like ?");	
 			UpdateStatment = connection.prepareStatement("update Student set password = ? where No = ? ");	
-			SearchMarkStatement = connection.prepareStatement("selete * from Mark where No = ?");
+			SearchMarkStatement = connection.prepareStatement("select * from Mark where No = ?");
 			InsertMarkStatement = connection.prepareStatement("insert into Mark(No,Suid,Tid,Score) values(?,?,?,?)");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -61,21 +61,24 @@ public class StudentMessageControler {
 			resultSet = SearchStatment.executeQuery();
 			SearchStatment.clearParameters();
 			resultSet.last();
-			students = new Student[resultSet.getRow()-1];
-			resultSet.first();
-			int i = 0;
-			while(resultSet.next()){
-				Student stu = new Student();
-				stu.setNo(resultSet.getString(1));
-				Department de = new Department();
-				de.setDid(resultSet.getInt(2));
-				stu.setDepartment(de);	//此department只有did，其他属性为空
-				stu.setName(resultSet.getString(3));
-				stu.setSex(resultSet.getString(4));
-				stu.setPassword(resultSet.getString(5));
-				students[i++] = stu;
+			if(resultSet.getRow()>0){
+				students = new Student[resultSet.getRow()];
+				resultSet.first();
+				int i = 0;
+				do{
+					Student stu = new Student();
+					stu.setNo(resultSet.getString(1));
+					Department de = new Department();
+					de.setDid(resultSet.getInt(2));
+					stu.setDepartment(de);	//此department只有did，其他属性为空
+					stu.setName(resultSet.getString(3));
+					stu.setSex(resultSet.getString(4));
+					stu.setPassword(resultSet.getString(5));
+					students[i++] = stu;
+				}while(resultSet.next());
+				return students;
 			}
-			return students;
+			return null;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -166,25 +169,29 @@ public class StudentMessageControler {
 			resultSet = SearchMarkStatement.executeQuery();
 			SearchMarkStatement.clearParameters();
 			resultSet.last();
-			marks = new Mark[resultSet.getRow()-1];
-			resultSet.first();
-			int i = 0;
-			while(resultSet.next()){
-				Mark m = new Mark();
-				m.setMid(resultSet.getInt(1));
-				Student stu = new Student();
-				stu.setNo(resultSet.getString(2));
-				m.setStudent(stu);
-				Subject sub = new Subject();
-				sub.setSuid(resultSet.getInt(3));
-				m.setSubject(sub);
-				Teacher tea = new Teacher();
-				tea.setTid(resultSet.getInt(4));
-				m.setTeacher(tea);
-				m.setScore(resultSet.getBigDecimal(5).doubleValue());
-				marks[i++] = m;
+			if(resultSet.getRow()>0)
+			{
+				marks = new Mark[resultSet.getRow()];
+				resultSet.first();
+				int i = 0;
+				do{
+					Mark m = new Mark();
+					m.setMid(resultSet.getInt(1));
+					Student stu = new Student();
+					stu.setNo(resultSet.getString(2));
+					m.setStudent(stu);
+					Subject sub = new Subject();
+					sub.setSuid(resultSet.getInt(3));
+					m.setSubject(sub);
+					TeacherMessageControler tmc = new TeacherMessageControler();
+					Teacher[] tea = tmc.SearchTeacher(Integer.toString(resultSet.getInt(4)), null, null);
+					m.setTeacher(tea[0]);
+					m.setScore(resultSet.getBigDecimal(5).doubleValue());
+					marks[i++] = m;
+				}while(resultSet.next());
+				return marks;
 			}
-			return marks;
+			return null;
 		}
 		catch (Exception e) {
 			// TODO: handle exception
