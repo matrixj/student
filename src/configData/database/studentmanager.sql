@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: studentmanager
 Target Host: localhost
 Target Database: studentmanager
-Date: 2013/6/8 19:18:13
+Date: 2013/6/14 12:24:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -12,7 +12,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- Table structure for department
 -- ----------------------------
 CREATE TABLE `department` (
-  `Did` int(11) NOT NULL,
+  `Did` int(11) NOT NULL auto_increment,
   `Major` varchar(100) NOT NULL,
   `Grade` varchar(100) NOT NULL,
   `Class` varchar(100) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `student` (
 -- Table structure for subject
 -- ----------------------------
 CREATE TABLE `subject` (
-  `Suid` int(11) NOT NULL,
+  `Suid` int(11) NOT NULL auto_increment,
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY  (`Suid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -64,7 +64,7 @@ CREATE TABLE `subject` (
 -- Table structure for teacher
 -- ----------------------------
 CREATE TABLE `teacher` (
-  `Tid` int(11) NOT NULL,
+  `Tid` int(11) NOT NULL auto_increment,
   `Name` varchar(100) NOT NULL,
   `Password` varchar(16) NOT NULL,
   PRIMARY KEY  (`Tid`)
@@ -78,12 +78,31 @@ CREATE TABLE `teacher_subject` (
   `Tid` int(11) NOT NULL,
   PRIMARY KEY  (`Suid`,`Tid`),
   KEY `FK_teacher_subject_tid` (`Tid`),
-  CONSTRAINT `FK_teacher_subject_tid` FOREIGN KEY (`Tid`) REFERENCES `teacher` (`Tid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_teacher_subject_suid` FOREIGN KEY (`Suid`) REFERENCES `subject` (`Suid`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_teacher_subject_suid` FOREIGN KEY (`Suid`) REFERENCES `subject` (`Suid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_teacher_subject_tid` FOREIGN KEY (`Tid`) REFERENCES `teacher` (`Tid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records 
 -- ----------------------------
 INSERT INTO `department` VALUES ('2', 'math', '2010', '1');
+INSERT INTO `department` VALUES ('3', 'math', '2010', '2');
+INSERT INTO `department` VALUES ('4', '软件工程', '2009', '1');
+INSERT INTO `department` VALUES ('5', '软件工程', '2010', '1');
+INSERT INTO `mark` VALUES ('1', '1', '1', '1', '60.00');
+INSERT INTO `mark` VALUES ('2', '2', '1', '1', '61.00');
+INSERT INTO `mark` VALUES ('3', '2', '2', '2', '90.00');
 INSERT INTO `student` VALUES ('1', '2', 'ben', 'm', '123');
+INSERT INTO `student` VALUES ('2', '3', 'fuck', 'm', '123');
+INSERT INTO `student` VALUES ('3', '2', 'ben2', 'm', '123');
+INSERT INTO `student` VALUES ('4', '2', 'ben3', 'm', '123');
+INSERT INTO `subject` VALUES ('1', 'jsp');
+INSERT INTO `subject` VALUES ('2', '高数');
+INSERT INTO `subject` VALUES ('3', 'C#');
+INSERT INTO `subject` VALUES ('4', 'C语言');
+INSERT INTO `subject` VALUES ('5', '软件工程');
+INSERT INTO `teacher` VALUES ('1', '朱凯', '123456');
+INSERT INTO `teacher` VALUES ('2', '财爷', '123');
+INSERT INTO `teacher_subject` VALUES ('1', '1');
+INSERT INTO `teacher_subject` VALUES ('5', '1');
+INSERT INTO `teacher_subject` VALUES ('2', '2');

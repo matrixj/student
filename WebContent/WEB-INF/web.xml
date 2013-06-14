@@ -1,42 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>BlogTest</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>login.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-    <welcome-file>LoginPage.jsp</welcome-file>
-  </welcome-file-list>
-  <servlet>
+
+<!DOCTYPE web-app [<!ENTITY db_config SYSTEM  "db_config.xml">]>
+  
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>student</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>login.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>LoginPage.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<!-- 防止用户直接访问jsp页面 -->
+	<filter>
+		<filter-name>jspFilter</filter-name>
+		<filter-class>com.student.filter.JspFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>jspFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+	
     <servlet-name>loginServlet</servlet-name>
     <servlet-class>com.student.servlet.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/loginServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>InitServlet</servlet-name>
-    <servlet-class>com.student.servlet.InitServlet</servlet-class>
-    <init-param>
-      <param-name>DBDriver</param-name>
-      <param-value>com.mysql.jdbc.Driver</param-value>
-    </init-param>
-    <init-param>
-      <param-name>DBConnStr</param-name>
-      <param-value>jdbc:mysql://first_lin:3306/studentmanager?useUnicode=true</param-value>
-    </init-param>
-    <init-param>
-      <param-name>user</param-name>
-      <param-value>root</param-value>
-    </init-param>
-    <init-param>
-      <param-name>password</param-name>
-      <param-value>linyaohua</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
+
+  	</servlet-mapping>
+  	<servlet>
+    <servlet-name>showMarkServlet</servlet-name>
+    <servlet-class>com.student.servlet.ShowMarkServlet</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+    <servlet-name>showMarkServlet</servlet-name>
+    <url-pattern>/showMarkServlet</url-pattern>
+  	</servlet-mapping>
+  	
+  	<servlet>
+  		<servlet-name>homeServlet</servlet-name>
+  		<servlet-class>com.student.servlet.HomeServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>homeServlet</servlet-name>
+  		<url-pattern>/home</url-pattern>
+  	</servlet-mapping>
+  	
+  	<servlet>
+  		<servlet-name>inputMarkServlet</servlet-name>
+  		<servlet-class>com.student.servlet.InputMarkServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>inputMarkServlet</servlet-name>
+  		<url-pattern>/input_mark</url-pattern>
+  	</servlet-mapping>
+  	
+ 	&db_config;
+
 </web-app>

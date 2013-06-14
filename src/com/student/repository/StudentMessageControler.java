@@ -1,6 +1,14 @@
 package com.student.repository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.student.bean.model.Department;
+import com.student.bean.model.Mark;
+import com.student.bean.model.Student;
+import com.student.bean.model.Subject;
+import com.student.bean.model.Teacher;
 
 /**
  * 操作学生信息数据库
@@ -25,8 +33,8 @@ public class StudentMessageControler {
 														"Password like ? and Did like ? and Name like ? and Sex like ?");	
 			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	
 			DeleteStatment = connection.prepareStatement("delete from Student where No like ? and Did like ?");	
-			UpdateStatment = connection.prepareStatement("");	
-			SearchMarkStatement = connection.prepareStatement("selete * from Mark where No = ?");
+			UpdateStatment = connection.prepareStatement("update Student set password = ? where No = ? ");	
+			SearchMarkStatement = connection.prepareStatement("select * from Mark where No = ?");
 			InsertMarkStatement = connection.prepareStatement("insert into Mark(No,Suid,Tid,Score) values(?,?,?,?)");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -37,7 +45,8 @@ public class StudentMessageControler {
 	/**
 	 * 查找功能
 	 */
-	public boolean SearchStudent(String No,String Password,String Did,String Name,String Sex){
+	public Student[] SearchStudent(String No,String Password,String Did,String Name,String Sex){
+		Student[] students;
 		try {
 			if(No==null)No = "%";
 			if(Password==null)Password = "%";
@@ -51,17 +60,29 @@ public class StudentMessageControler {
 			SearchStatment.setString(5, "%");
 			resultSet = SearchStatment.executeQuery();
 			SearchStatment.clearParameters();
-			/*
-			 * while(resultSet.next()){
-				System.out.println(resultSet.getString(3));
+			resultSet.last();
+			if(resultSet.getRow()>0){
+				students = new Student[resultSet.getRow()];
+				resultSet.first();
+				int i = 0;
+				do{
+					Student stu = new Student();
+					stu.setNo(resultSet.getString(1));
+					Department de = new Department();
+					de.setDid(resultSet.getInt(2));
+					stu.setDepartment(de);	//此department只有did，其他属性为空
+					stu.setName(resultSet.getString(3));
+					stu.setSex(resultSet.getString(4));
+					stu.setPassword(resultSet.getString(5));
+					students[i++] = stu;
+				}while(resultSet.next());
+				return students;
 			}
-			*/
-			if(resultSet.next())return true;
-			return false;
+			return null;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return false;
+			return null;
 		}			
 	}
 	
@@ -124,25 +145,58 @@ public class StudentMessageControler {
 	/**
 	 * 修改学生信息
 	 */
-	public void UpdateStudent(){
-		
+	public boolean UpdateStudent(String No,String Password){
+		try{
+			UpdateStatment.setString(1, Password);
+			UpdateStatment.setString(2, No);
+			UpdateStatment.executeUpdate();
+			UpdateStatment.clearParameters();
+			return true;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	/**
 	 * 查询学生个人成绩
 	 */
-	public void FindStudentMark(String Tid){
+	public Mark[] FindStudentMark(String No){
+		Mark[] marks;
 		try{
-			SearchMarkStatement.setString(1, Tid);
+			SearchMarkStatement.setString(1, No);
 			resultSet = SearchMarkStatement.executeQuery();
 			SearchMarkStatement.clearParameters();
-			while(resultSet.next()){
-				System.out.println(resultSet.getDouble(5));
+			resultSet.last();
+			if(resultSet.getRow()>0)
+			{
+				marks = new Mark[resultSet.getRow()];
+				resultSet.first();
+				int i = 0;
+				do{
+					Mark m = new Mark();
+					m.setMid(resultSet.getInt(1));
+					Student stu = new Student();
+					stu.setNo(resultSet.getString(2));
+					m.setStudent(stu);
+					Subject sub = new Subject();
+					sub.setSuid(resultSet.getInt(3));
+					m.setSubject(sub);
+					TeacherMessageControler tmc = new TeacherMessageControler();
+					Teacher[] tea = tmc.SearchTeacher(Integer.toString(resultSet.getInt(4)), null, null);
+					m.setTeacher(tea[0]);
+					m.setScore(resultSet.getBigDecimal(5).doubleValue());
+					marks[i++] = m;
+				}while(resultSet.next());
+				return marks;
 			}
+			return null;
 		}
 		catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -163,6 +217,43 @@ public class StudentMessageControler {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	/**
+	 * 查找指定班别的所有学生
+	 * @param major
+	 * @param grade
+	 * @param cls
+	 * @return
+	 */
+	public List<Student> findStudentByClass(
+			String major, String grade, String cls) {
+		try {
+			Statement state = connection.createStatement();
+			resultSet = state.executeQuery(
+					"SELECT no, name, sex FROM student WHERE did=" +
+					"(SELECT did FROM department WHERE " +
+					"major='" + major + "' " +
+					"AND grade='" + grade + "' " +
+					"AND class='" + cls + "')");
+			List<Student> students = null;
+			if(resultSet.first()) {
+				students = new ArrayList<Student>();
+				do {
+					Student student = new Student();
+					student.setNo(resultSet.getString("no"));
+					student.setName(resultSet.getString("name"));
+					student.setSex(resultSet.getString("sex"));
+					students.add(student);
+				} while(resultSet.next());
+			}
+			state.close();
+			resultSet.close();
+			return students;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**

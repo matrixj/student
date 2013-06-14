@@ -103,7 +103,8 @@ h1{
 		<div class="form">
 			<form action="loginServlet?flag=<%= request.getParameter("flag") %>" method="post">
 				<table cellspacing="10px" width="300px">
-					<tr><td colspan="2"><h4><% if(request.getParameter("flag").equals("1")){out.print("老师登陆");}else {out.print("学生登陆");} %></h4></td></tr>
+					<tr><td colspan="2"><h4><% if(request.getParameter("flag").equals("1")){out.print("老师登陆");}else {out.print("学生登陆");} %></h4>
+										<h6 style="color:#ff0000"><% if(request.getParameter("uncorrect")!=null)out.print("  "+request.getParameter("uncorrect")); %></h6></td></tr>
 					<tr><td>用户名:</td><td><input type="text" name="ID"/></td></tr>
 					<tr><td>密码:</td><td><input type="password" name="password"/></td></tr>
 					<tr><td colspan="2" align="right"><input type="submit" value="登陆" class="btn"><input type="reset" value="重置" class="btn"></td></tr>
@@ -113,7 +114,7 @@ h1{
 	<%
 		}
 	%>
-	<div class="top"></div>
+	<div class="top"></div>	
 </body>
 </html>
 
