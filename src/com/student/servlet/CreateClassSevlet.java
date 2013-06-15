@@ -13,16 +13,16 @@ import javax.swing.JOptionPane;
 import com.student.repository.TeacherEnterHandle;
 
 /**
- * Servlet implementation class TeacherEnterSevlet
+ * Servlet implementation class CreateClassSevlet
  */
-@WebServlet("/TeacherEnterSevlet")
-public class TeacherEnterSevlet extends HttpServlet {
+@WebServlet("/CreateClassSevlet")
+public class CreateClassSevlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TeacherEnterSevlet() {
+    public CreateClassSevlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,10 +32,6 @@ public class TeacherEnterSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher rd= request.getRequestDispatcher("/CreateClass.jsp");
-      
-        rd.forward(request, response);
-		
 	}
 
 	/**
@@ -43,26 +39,24 @@ public class TeacherEnterSevlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		String grade = request.getParameter("Grade");
-		String _class = request.getParameter("Class");
-		String major = request.getParameter("Major");
+		request.setCharacterEncoding("UTf-8");
+		String _class = request.getParameter("_class");
+		String major = request.getParameter("major");
+		String grade = request.getParameter("grade");
+		String Did   = request.getParameter("Did");
 		TeacherEnterHandle teacherEn = new TeacherEnterHandle();
+		if(teacherEn.isExist(grade, _class, major)){
+			RequestDispatcher rd= request.getRequestDispatcher("/CreateClass.jsp");
+			request.setAttribute("success", "NO");
+	         rd.forward(request, response);
+		}
 		if(!teacherEn.isExist(grade, _class, major)){
-              RequestDispatcher rd= request.getRequestDispatcher("/TeacherEntering.jsp");
-              request.setAttribute("isRight", "error");
-              rd.forward(request, response);
-		}
-		else{
-			RequestDispatcher rd= request.getRequestDispatcher("/TeacherEntering.jsp");
-            request.setAttribute("isRight", "right");
-            request.setAttribute("Grade", grade);
-            request.setAttribute("Class", _class);
-            request.setAttribute("Major", major);
-            rd.forward(request, response);
 			
+			teacherEn.InsertClass(Integer.parseInt(Did), major, _class, grade);
+			RequestDispatcher rd= request.getRequestDispatcher("/TeacherEntering.jsp");
+			request.setAttribute("success", "Yes");
+	         rd.forward(request, response);
 		}
-		
 	}
 
 }

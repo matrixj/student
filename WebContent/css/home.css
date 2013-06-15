@@ -1,0 +1,29 @@
+.row {
+	width: 600px;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	word-break : break-all;
+}
+
+.welcome {
+	margin-top: 80px;
+}
+
+.welcome span {
+	font-size: x-large;
+}
+
+.home_tips {
+	text-align: left;
+}
+
+.function {
+	margin-left: 100px;
+}
+
+.function_list {
+	margin-left: 180px;
+}

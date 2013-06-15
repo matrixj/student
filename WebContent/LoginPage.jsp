@@ -94,8 +94,8 @@ h1{
 	<%
 		if(request.getParameter("flag")==null){
 	%>
-		<a class="teacher" href="LoginPage.jsp?flag=1">老师入口</a>
-		<a class="student" href="LoginPage.jsp?flag=0">学生入口</a>
+		<a class="teacher" href="loginPage?flag=1">老师入口</a>
+		<a class="student" href="loginPage?flag=0">学生入口</a>
 	<% 
 		}
 		else{

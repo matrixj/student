@@ -1,6 +1,8 @@
 package com.student.repository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.student.bean.model.Department;
 import com.student.bean.model.Mark;
@@ -253,6 +255,43 @@ public class StudentMessageControler {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	/**
+	 * 查找指定班别的所有学生
+	 * @param major
+	 * @param grade
+	 * @param cls
+	 * @return
+	 */
+	public List<Student> findStudentByClass(
+			String major, String grade, String cls) {
+		try {
+			Statement state = connection.createStatement();
+			resultSet = state.executeQuery(
+					"SELECT no, name, sex FROM student WHERE did=" +
+					"(SELECT did FROM department WHERE " +
+					"major='" + major + "' " +
+					"AND grade='" + grade + "' " +
+					"AND class='" + cls + "')");
+			List<Student> students = null;
+			if(resultSet.first()) {
+				students = new ArrayList<Student>();
+				do {
+					Student student = new Student();
+					student.setNo(resultSet.getString("no"));
+					student.setName(resultSet.getString("name"));
+					student.setSex(resultSet.getString("sex"));
+					students.add(student);
+				} while(resultSet.next());
+			}
+			state.close();
+			resultSet.close();
+			return students;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**

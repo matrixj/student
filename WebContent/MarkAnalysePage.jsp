@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=GB18030">
+<%@include file="HeadPage.jsp" %>
 <title>成绩分析</title>
 <style type="text/css">
 .info{

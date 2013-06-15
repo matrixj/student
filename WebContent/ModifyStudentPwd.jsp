@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=GB18030">
+<%@include file="HeadPage.jsp" %>
 <title>修改信息</title>
 <style type="text/css">
 .info{

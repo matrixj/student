@@ -55,9 +55,10 @@ public class TeacherEnterHandle {
 	    	int index=0;
 	    	try{
 	    	while( rs.next()){
-	    		if(hs.add(rs.getString(3)))
+	    		if(hs.add(rs.getString(3))){
 	    		grade[index] =  rs.getString(3);
 	    		index++;
+	    		}
 	    	}
 	    	
 	    	}
@@ -76,9 +77,10 @@ public class TeacherEnterHandle {
 	    	int index=0;
 	    	try{
 	    	while(rs.next()){
-	    		if(hs.add(rs.getString(2)))
+	    		if(hs.add(rs.getString(2))){
 	    		major[index] = rs.getString(2);
 	    		index++;
+	    		}
 	    	}
 	    
 	    	}
@@ -95,9 +97,10 @@ public class TeacherEnterHandle {
 	    	int index=0;
 	    	try{
 	    	while(rs.next()){
-	    		if(hs.add(rs.getString(4)))
+	    		if(hs.add(rs.getString(4))){
 	    		Class[index] = rs.getString(4);
 	    		index++;
+	    		}
 	    	}
 	    
 	    	}
@@ -109,6 +112,7 @@ public class TeacherEnterHandle {
 	    //判断所选班级是否存在
 	    public boolean isExist(String grade,String _class,String major){
 	    	try{
+	    		
 	    		PreparedStatement  state = conn.prepareStatement("select * from department where Major=? and Grade=? and Class=?");
 	    	       state.setString(1, major);
 	    	       state.setString(2, grade);
@@ -123,5 +127,138 @@ public class TeacherEnterHandle {
 	    	}
 	    	return false;
 	    }
-	  
+	    //判断学生是否存在
+	    public boolean isExist_student(String no){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("select * from student where No=?");
+	    	       state.setString(1, no);
+	    	
+	    	      ResultSet rs = state.executeQuery();
+	    	       if(rs.next()){
+	    	    	   return true;
+	    	       }
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    	return false;
+	    }
+	    /*
+	     * 获取对应department的Did*
+	     * param1  class,grade,major
+	     *return int Did
+	     */
+	    public int SearchDid(String grade,String _class,String major){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("select * from department where Major=? and Grade=? and Class=?");
+	    	       state.setString(1, major);
+	    	       state.setString(2, grade);
+	    	       state.setString(3, _class);
+	    	      ResultSet rs = state.executeQuery();
+	    	      if(rs.next())
+	    	    	  return rs.getInt(1);
+	    	      
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	  	  return 0;
+	    }
+	    /*
+	     * 获取对应Did下学生名单*
+	     * param1 int Did
+	     *return String[][][]
+	     */
+	    public String[][] SearchStudent(String grade,String _class,String major){
+	    	String[][] msg = new String[50][4];
+	    	int i= 0;
+	    	int Did = SearchDid( grade,_class,major);
+	    	try{
+	    	PreparedStatement  state = conn.prepareStatement("select * from student where Did = ?");
+	    	 state.setInt(1, Did);
+	    	 ResultSet rs = state.executeQuery();
+	    	 while(rs.next()){
+	    		 msg[i][0] = rs.getString(1);//No
+	    		 msg[i][1] = rs.getString(3);//name
+	    		 msg[i][2] = rs.getString(4);//sex
+	    		 msg[i][3] = rs.getString(5);//pw
+
+	    		 i++;
+	    	 }
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    	return msg;
+	    }
+	    /*
+	     * UPdate student*
+	     * param    all
+	     *return String[][][]
+	     */
+	    public void UpdateStudent(String No,int Did,String Sex,String Name,String Password){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("update student set Did=?,Name=?,Sex=?,Password=? where No=?");
+	    		state.setInt(1, Did);
+	    		state.setString(2, Name);
+	    		state.setString(3, Sex);
+	    		state.setString(4, Password);
+	    		state.setString(5, No);
+	    	    state.executeUpdate();
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    }
+	    /*
+	     * insert new student*
+	     * param    all
+	     */
+	    public void InsertStudent(String No,int Did,String Sex,String Name,String Password){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("insert into student values (?,?,?,?,?)");
+	    		state.setString(1, No);
+	    		state.setInt(2, Did);
+	    		state.setString(3, Name);
+	    		state.setString(4, Sex);
+	    		state.setString(5, Password);
+	    	    state.executeUpdate();
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    }
+	    /*
+	     * insert new class*
+	     * param    all
+	     */
+	    public void InsertClass(int Did,String major,String _class,String grade){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("insert into department values (?,?,?,?)");
+	    		
+	    		state.setInt(1, Did);
+	    		state.setString(2, major);
+	    		state.setString(3, grade);
+	    		state.setString(4,  _class);
+	    	    state.executeUpdate();
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    }
+	    /*
+	     * insert new class*
+	     * param    all
+	     */
+	    public void DelStudent(String no){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("delete from student where No = ?");
+	    	    state.setString(1, no);
+	    	    state.executeUpdate();
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    	
+	    }
 }
