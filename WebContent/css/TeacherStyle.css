@@ -1,0 +1,74 @@
+td{
+   border:1px solid #cad9ea;
+}
+th{
+    border:1px solid #cad9ea;
+    padding:0 1em 0;
+     background-image: url(../image/th_bg.jpg);
+    background-repeat::repeat-x;
+    height:30px;
+    
+}
+table{
+    table-layout:fixed;
+    empty-cells:show; 
+    border-collapse: collapse;
+    margin:0 auto;
+     color:#666;  
+}
+tr{
+  background-color::#fbd8e8;
+
+}
+input[type=text] {
+ background:transparent;
+ border:0px;
+}
+.signupButton{
+	/* The submit button container */
+	text-align:center;
+	padding:30px 0 10px;
+}
+
+#submit{
+	/* The submit button */
+	border:1px solid #f4f4f4;
+	cursor:pointer;
+	height:40px;
+	text-indent:-9999px;
+	_text-indent:0;
+	text-transform:uppercase;
+	width:110px;
+	
+	background:url("../image/submit.jpg") no-repeat center center #d0ecfd;
+	
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+#add{
+	/* The submit button */
+	border:1px solid #f4f4f4;
+	cursor:pointer;
+	height:40px;
+	text-indent:-9999px;
+	_text-indent:0;
+	text-transform:uppercase;
+	width:110px;
+	
+	background:url("../image/add.jpg") no-repeat center center #d0ecfd;
+	
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+#submit.active{
+	/* Marking the submit button as active adds the preloader gif as background */
+	background-image:url("../image/preloader.gif");
+}
+
+#submit:hover{
+	background-color:#dcf2ff;
+	border:1px solid white;
+}
