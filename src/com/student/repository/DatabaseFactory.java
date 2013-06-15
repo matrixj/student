@@ -9,7 +9,7 @@ import com.student.CommonData;
 public class DatabaseFactory {
 	
 	/**
-	 * 打开数据库
+	 * 打开数据库  
 	 * @return	打开失败返回null 
 	 */
 	public static Connection open() {
