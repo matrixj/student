@@ -4,22 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@include file="HeadPage.jsp" %>
+<link href="css/styles.css" rel="stylesheet" />
 <title>新建班级</title>
 </head>
 <body>
-        <style type="text/css">
-<!--
-body,td,th {
-font-family: 宋体;
-font-size: 14px;
-}
-.STYLE1 {
-font-size: 24px;
-font-weight: bold;
-}
--->
-</style>
-<p align="center" class="STYLE1">班级信息</p>
+
 <% 
       if(request.getAttribute("success")=="NO"){
     	  
@@ -29,39 +19,41 @@ font-weight: bold;
 	   </script>
  <% }
 %>
-<form action="CreateClassSevlet" method="post" >
-<table width="400" border="3" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000" bgcolor="#99CCFF">
-<tr>
-<td width="96" height="30" align="center">建班者</td>
-<td width="96" height="30" align="center"><input type="text" name="teacher" ></td>
-<td width="97" height="30" align="center">班级代号(11位内)</td>
-<td width="97" height="30" align="center"><input type="text" name="Did"></td>
-</tr>
-<tr>
-<td height="30" align="center">年级</td>
-<td height="30" align="center"><input type="text" name="grade"></td>
-<td height="30" align="center">班级</td>
-<td height="30" align="center"><input type="text" name="_class"></td>
-</tr>
-<tr>
-<td height="30" align="center">人数</td>
-<td height="30" align="center"><input type="text" name="count"></td>
-<td height="30" align="center">专业</td>
-<td height="30" align="center"><input type="text" name="major"></td>
-</tr>
-<tr>
-<td height="30" colspan="2" align="center">&nbsp;</td>
-<td height="30" colspan="2" align="center">&nbsp;</td>
-</tr>
-<tr>
-<td height="30" colspan="2" align="center">&nbsp;</td>
-<td height="30" colspan="2" align="center">&nbsp;</td>
-</tr>
-<tr>
-<td height="30" colspan="2" align="center">&nbsp;</td>
-<td height="30" colspan="2" align="center"><input type="reset" name="重置" style="border-right-width: thick;"><input type="submit" name="提交" style="border-right-width: thick;"></td>
-</tr>
-</table>
-</form>
+<div id="carbonForm">
+    <h1>班级创建</h1>
+    <form action="CreateClassSevlet" method="post" id="signupForm">
+    <div class="fieldContainer">
+      <div class="formRow">
+        <div class="label">
+          <label >Grade:</label>
+        </div>
+        <div class="field">
+          <input type="text" name="grade" id="grade" />
+        </div>
+      </div>
+      <div class="formRow">
+        <div class="label">
+          <label >Class:</label>
+        </div>
+       
+        <div class="field">
+          <input type="text" name="_class" id="_class" />
+        </div>
+      </div>
+      <div class="formRow">
+        <div class="label">
+          <label>Major:</label>
+        </div>
+       
+        <div class="field">
+          <input type="text" name="major" id="subject" />
+        </div>
+      </div>
+    </div>
+    <div class="signupButton">
+      <input type="submit" name="submit" id="submit" value="录入" />
+    </div>
+    </form>
+  </div>
 </body>
 </html>

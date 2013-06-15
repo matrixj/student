@@ -1,6 +1,7 @@
 package com.student.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,21 +9,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
+
+import org.apache.jasper.tagplugins.jstl.core.Out;
 
 import com.student.repository.TeacherEnterHandle;
 
 /**
- * Servlet implementation class CreateClassSevlet
+ * Servlet implementation class SubjectEnter
  */
-@WebServlet("/CreateClassSevlet")
-public class CreateClassSevlet extends HttpServlet {
+@WebServlet("/SubjectEnter")
+public class SubjectEnterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateClassSevlet() {
+    public SubjectEnterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,32 +41,29 @@ public class CreateClassSevlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTf-8");
-		String _class = request.getParameter("_class");
-		String major = request.getParameter("major");
-		String grade = request.getParameter("grade");
-		//String Did   = request.getParameter("Did");
 		TeacherEnterHandle teacherEn = new TeacherEnterHandle();
-		if(_class==""||major==""||grade==""){
-			RequestDispatcher rd= request.getRequestDispatcher("/CreateClass.jsp");
-			request.setAttribute("success", "NO");
+	     request.setCharacterEncoding("UTF-8");
+	     String subject = (String) request.getParameter("subject");
+	     String teacher = (String) request.getParameter("teacher");
+	     if(!teacherEn.isExist_teacher(teacher)){
+	    	request.setAttribute("isRight", "teacherError");
+	    	 RequestDispatcher rd= request.getRequestDispatcher("/Subject.jsp");
 	         rd.forward(request, response);
-		}
-		else{
-		if(teacherEn.isExist(grade, _class, major)){
-			RequestDispatcher rd= request.getRequestDispatcher("/CreateClass.jsp");
-			request.setAttribute("success", "NO");
-	         rd.forward(request, response);
-		}
-		if(!teacherEn.isExist(grade, _class, major)){
-			
-			teacherEn.InsertClass( major, _class, grade);
-			RequestDispatcher rd= request.getRequestDispatcher("/TeacherEntering.jsp");
-			request.setAttribute("success", "Yes");
-	         rd.forward(request, response);
-		}
-		}
-		
+	     }
+	     else{
+	    	 if(teacherEn.isExist_subject(subject)){
+	    		 request.setAttribute("isRight", "subjectError");
+		    	 RequestDispatcher rd= request.getRequestDispatcher("/Subject.jsp");
+		         rd.forward(request, response);
+	    	 }
+	    	 else{
+	    		int subjectid= teacherEn.InsertSubject(subject);
+	    		teacherEn.InsertTeacher_subject(teacher, subjectid);
+	    		request.setAttribute("isRight", "right");
+	    		 RequestDispatcher rd= request.getRequestDispatcher("/Subject.jsp");
+		         rd.forward(request, response);
+	    	 }
+	     }
 	}
 
 }

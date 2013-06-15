@@ -5,12 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@include file="HeadPage.jsp" %>
 <title>教师录入班级/学生信息</title>
-<style type="text/css">
-#td{
-   border-style: groove;
-}
-</style>
+ <link href="css/TeacherStyle.css" rel="stylesheet" />
 </head>
 <body>
 <%   String isRight =  (String)request.getAttribute("isRight");
@@ -67,7 +64,7 @@
              %>
              </select>
          &nbsp&nbsp&nbsp&nbsp
-         <input type="submit" value="确定" > &nbsp&nbsp <a href="TeacherEnterSevlet"  >创建班级</a></center>
+        <input type="submit" value="确定" > &nbsp&nbsp <a href="TeacherEnterSevlet"  >创建班级</a></center>
          </form>
          <%  
        if(isRight == "right"){
@@ -78,8 +75,9 @@
           <br>
           <form action="TeacherUpdateMSGServlet" method="post">
           <center>
-         <table style="border-style: solid;" id="test">
-         <tr><td>姓名</td><td class="s">性别</td><td>学号</td><td>密码</td><td>操作</td></tr>
+         <table  id="test">
+         <thead>
+<th>姓名</th><th>性别</th><th>学号</th><th>密码</th><th>操作</th></tr></thead>
          <%
             i = 0;
          String[][] msg = teacher.Student(grade_show, class_show,major_show);
@@ -105,7 +103,10 @@
          %>
        
          </table>
-       <input type="submit" value="提交"><input type="button" value="增加一行" onclick="javascript:addtr()" />
+         <div class="signupButton">
+      <input type="submit" value="提交" id="submit"><input id="add" type="button" value="增加一行" onclick="javascript:addtr()" />
+    </div>
+       
          </center>
          </form>
          
