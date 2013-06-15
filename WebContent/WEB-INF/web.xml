@@ -50,4 +50,36 @@
     <servlet-name>inputMarkServlet</servlet-name>
     <url-pattern>/input_mark</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CreateClass</servlet-name>
+    <servlet-class>com.student.servlet.CreateClassSevlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateClass</servlet-name>
+    <url-pattern>/CreateClassSevlet</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>SubjectEnter</servlet-name>
+    <servlet-class>com.student.servlet.SubjectEnterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubjectEnter</servlet-name>
+    <url-pattern>//SubjectEnter</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>TeacherEnter</servlet-name>
+    <servlet-class>com.student.servlet.TeacherEnterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TeacherEnte</servlet-name>
+    <url-pattern>/TeacherEnterServlet</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>TeacherUpdateMSG</servlet-name>
+    <servlet-class>com.student.servlet.TeacherUpdateMSGServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TeacherUpdateMSG</servlet-name>
+    <url-pattern>/TeacherUpdateMSGServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
