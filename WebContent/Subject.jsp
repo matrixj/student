@@ -6,14 +6,17 @@
 <html >
 <head>
 <%@include file="HeadPage.jsp" %>
+<script type="text/javascript">
+	setTitleBar('title_subject');
+</script>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>科目录入</title>
   <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
-     <% //String teacherName =(String)session.getAttribute("teacherName");
-    String teacherName = "朱凯";
-     String isRight = (String)request.getAttribute("isRight");
+     <% 
+     String teacherName =  name;
+     String isRight = (String) request.getAttribute("isRight");
      if(isRight == "teacherError"){
     	 %>
   	   <script language="javascript">

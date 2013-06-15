@@ -5,6 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="HeadPage.jsp" %>
+<script type="text/javascript">
+	setTitleBar('title_student');
+</script>
 <link href="css/styles.css" rel="stylesheet" />
 <title>新建班级</title>
 </head>

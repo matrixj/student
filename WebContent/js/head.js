@@ -54,3 +54,7 @@ function setBackground() {
 	htm.substring(headPage.innerHTML.length + index + 7, htm.length) + 
 	"</div></body>";
 }
+
+function setTitleBar(id) {
+	document.getElementById(id).style.backgroundColor = "#43699A";
+}

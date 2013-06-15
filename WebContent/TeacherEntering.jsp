@@ -6,6 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="HeadPage.jsp" %>
+<script type="text/javascript">
+	setTitleBar('title_student');
+</script>
 <title>教师录入班级/学生信息</title>
  <link href="css/TeacherStyle.css" rel="stylesheet" />
 </head>
@@ -28,7 +31,7 @@
  <% }
 %>
 <jsp:useBean id="tea" class="com.student.bean.TeacherEnterBean" scope="page"></jsp:useBean>
-         <form action="TeacherEnterSevlet" method="post" >
+         <form action="TeacherEnterServlet" method="post" >
          <center>教师：<select name="teacher">
          <% String[] names = tea.AllTeacherName();
          int i = 0 ;
@@ -64,7 +67,7 @@
              %>
              </select>
          &nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="submit" value="确定" > &nbsp&nbsp <a href="TeacherEnterSevlet"  >创建班级</a></center>
+        <input type="submit" value="确定" > &nbsp;&nbsp; <a href="TeacherEnterServlet"  >创建班级</a></center>
          </form>
          <%  
        if(isRight == "right"){

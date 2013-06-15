@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.student.bean.model.Mark;
 import com.student.bean.model.Student;
 import com.student.bean.model.Subject;
+import com.student.bean.model.Teacher;
 import com.student.repository.DepartmentMessageControler;
 import com.student.repository.MarkMessageControler;
 import com.student.repository.StudentMessageControler;
@@ -48,39 +49,41 @@ public class InputMarkServlet extends HttpServlet {
 		String major = req.getParameter("major");
 		String grade = req.getParameter("grade");
 		String cls = req.getParameter("class");
+		String tid = ((Teacher) req.getSession().
+				getAttribute("Teacher")).getTid() + "";
 		if(flag == null) {
 			if(result != null) {
 				req.getRequestDispatcher("InputMarkResult.jsp").forward(req, resp);
 				return;
 			}
 			if(subject != null && major != null && grade != null && cls != null) {
-				getStudentPage(req, resp, subject, major, grade, cls, "1");
+				getStudentPage(req, resp, subject, major, grade, cls, tid);
 			}
 			else {
 				if(subject != null && major != null && 
 						!subject.equals("") && !major.equals("")) {
 					if(grade != null && !grade.equals("")) {
-						getClassPage(req, resp, subject, major, grade, "1");
+						getClassPage(req, resp, subject, major, grade, tid);
 					}
 					else {
-						getGradeClassPage(req, resp, subject, major, "1");
+						getGradeClassPage(req, resp, subject, major, tid);
 					}
 				}
 				else {
-					getRowPage(req, resp, "1");
+					getRowPage(req, resp, tid);
 				}
 			}
 		}
 		else {
 			//提交成绩
 			if(flag.equals("0")) {
-				submitMark(req, resp, "1");
+				submitMark(req, resp, tid);
 			}
 			else if(flag.equals("1")) {
-				updateMark(req, resp, "1");
+				updateMark(req, resp, tid);
 			}
 			else {
-				getRowPage(req, resp, "1");
+				getRowPage(req, resp, tid);
 			}
 		}
 	}
