@@ -192,12 +192,12 @@ public class StudentMessageControler {
 					StudentMessageControler smc = new StudentMessageControler();
 					Student stu[] = smc.SearchStudent(resultSet.getString(2), null, null, null, null);
 					m.setStudent(stu[0]);
-					Subject sub = new Subject();
-					sub.setSuid(resultSet.getInt(3));
-					m.setSubject(sub);
-					//sqlConn sc = new sqlConn();
-					//Subject[] sub = sc.getSubject("Suid", Integer.toString(resultSet.getInt(3)));
-					//m.setSubject(sub[0]);
+					//Subject sub = new Subject();
+					//sub.setSuid(resultSet.getInt(3));
+					//m.setSubject(sub);
+					sqlConn sc = new sqlConn();
+					Subject[] sub = sc.getSubject("Suid", Integer.toString(resultSet.getInt(3)));
+					m.setSubject(sub[0]);
 					TeacherMessageControler tmc = new TeacherMessageControler();
 					Teacher[] tea = tmc.SearchTeacher(Integer.toString(resultSet.getInt(4)), null, null);
 					m.setTeacher(tea[0]);
