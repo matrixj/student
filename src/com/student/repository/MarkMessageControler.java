@@ -29,16 +29,23 @@ public class MarkMessageControler {
 	 */
 	public List<Mark> getStudentsScores(
 			List<Student> students, String suid, String tid) {
-		if(students.size() > 0) {
+		if(students != null && students.size() > 0) {
 			try {
 				Statement state = connection.createStatement();
 				StringBuilder sql = new StringBuilder();
 				sql.append("SELECT no, score FROM mark WHERE " +
-						"suid=" + suid + " AND tid=" + tid);
+						"suid=" + suid + " AND tid=" + tid + " AND (");
+				boolean judge = false;
 				for(Student student : students) {
-					sql.append(" OR no=" + student.getNo());
+					if(judge) {
+						sql.append(" OR no=" + student.getNo());
+					}
+					else {
+						sql.append("no=" + student.getNo());
+						judge = true;
+					}
 				}
-				sql.append(";");
+				sql.append(");");
 				resultSet = state.executeQuery(sql.toString());
 				List<Mark> marks = null;
 				if(resultSet.first()) {

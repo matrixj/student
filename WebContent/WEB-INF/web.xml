@@ -135,7 +135,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SubjectEnter</servlet-name>
-    <url-pattern>//SubjectEnter</url-pattern>
+    <url-pattern>/SubjectEnter</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>TeacherEnter</servlet-name>
