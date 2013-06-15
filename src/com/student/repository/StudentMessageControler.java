@@ -22,6 +22,7 @@ public class StudentMessageControler {
 	private PreparedStatement UpdateStatment;	
 	private PreparedStatement SearchMarkStatement;	
 	private PreparedStatement InsertMarkStatement;	
+	private PreparedStatement SearchAllMarkStaement;
 	private ResultSet resultSet;	
 	
 	public StudentMessageControler(){
@@ -32,8 +33,10 @@ public class StudentMessageControler {
 			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	
 			DeleteStatment = connection.prepareStatement("delete from Student where No like ? and Did like ?");	
 			UpdateStatment = connection.prepareStatement("update Student set password = ? where No = ? ");	
-			SearchMarkStatement = connection.prepareStatement("select * from Mark where No = ?");
+			SearchMarkStatement = connection.prepareStatement("select Mid,Mark.No,Suid,Tid,Score from Mark,Student where " +
+					"											Student.No = Mark.No and Mark.No like ? and Did like ? and Suid like ?");
 			InsertMarkStatement = connection.prepareStatement("insert into Mark(No,Suid,Tid,Score) values(?,?,?,?)");
+			SearchAllMarkStaement = connection.prepareStatement("select * from Mark");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -66,9 +69,12 @@ public class StudentMessageControler {
 				do{
 					Student stu = new Student();
 					stu.setNo(resultSet.getString(1));
-					Department de = new Department();
-					de.setDid(resultSet.getInt(2));
-					stu.setDepartment(de);	//此department只有did，其他属性为空
+					//Department de = new Department();
+					//de.setDid(resultSet.getInt(2));
+					//stu.setDepartment(de);	//此department只有did，其他属性为空
+					sqlConn sc = new sqlConn();
+					Department[] dep = (Department[])sc.getDepartment("Did", Integer.toString(resultSet.getInt(2))).toArray();
+					stu.setDepartment(dep[0]);
 					stu.setName(resultSet.getString(3));
 					stu.setSex(resultSet.getString(4));
 					stu.setPassword(resultSet.getString(5));
@@ -160,9 +166,14 @@ public class StudentMessageControler {
 	/**
 	 * 查询学生个人成绩
 	 */
-	public Mark[] FindStudentMark(String No){
+	public Mark[] FindStudentMark(String No,String Did,String Sid){
 		Mark[] marks;
 		try{
+			if(No==null)No="%";
+			if(Did==null)SearchMarkStatement.setString(2, "%");
+			else SearchMarkStatement.setInt(2, Integer.parseInt(Did));
+			if(Sid==null)SearchMarkStatement.setString(3, "%");
+			else SearchMarkStatement.setInt(3, Integer.parseInt(Sid));
 			SearchMarkStatement.setString(1, No);
 			resultSet = SearchMarkStatement.executeQuery();
 			SearchMarkStatement.clearParameters();
@@ -175,12 +186,15 @@ public class StudentMessageControler {
 				do{
 					Mark m = new Mark();
 					m.setMid(resultSet.getInt(1));
-					Student stu = new Student();
-					stu.setNo(resultSet.getString(2));
-					m.setStudent(stu);
-					Subject sub = new Subject();
-					sub.setSuid(resultSet.getInt(3));
-					m.setSubject(sub);
+					StudentMessageControler smc = new StudentMessageControler();
+					Student stu[] = smc.SearchStudent(resultSet.getString(2), null, null, null, null);
+					m.setStudent(stu[0]);
+					//Subject sub = new Subject();
+					//sub.setSuid(resultSet.getInt(3));
+					//m.setSubject(sub);
+					sqlConn sc = new sqlConn();
+					Subject[] sub = sc.getSubject("Suid", Integer.toString(resultSet.getInt(3)));
+					m.setSubject(sub[0]);
 					TeacherMessageControler tmc = new TeacherMessageControler();
 					Teacher[] tea = tmc.SearchTeacher(Integer.toString(resultSet.getInt(4)), null, null);
 					m.setTeacher(tea[0]);
@@ -196,6 +210,30 @@ public class StudentMessageControler {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	/**
+	 * 查询全部成绩
+	 * 
+	 */
+	public Mark[] FindAllMark(){
+		return FindStudentMark(null,null,null);
+	}
+	
+	/**
+	 * 查询班级成绩
+	 * 
+	 */
+	public Mark[] FindDepartmentMark(String Did){
+		return FindStudentMark(null,Did,null);
+	}
+	
+	/**
+	 * 查询科目成绩
+	 * 
+	 */
+	public Mark[] FindSubjectMark(String Sid){
+		return FindStudentMark(null,null,Sid);
 	}
 	
 	/**

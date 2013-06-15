@@ -27,8 +27,8 @@
 </style>
 </head>
 <body bgcolor="#b2dfee">
-	<form action="" method="post">
-		<div class="info">
+	<form action="modifyPwd" method="post" class="info">
+		<div>
 			<table cellpadding="40px">
 				<tr><td>源密码 :</td><td><input type="password" name="oldPassword"></td></tr>
 				<tr><td>新密码 :</td><td><input type="password" name="newPassword"></td></tr>
@@ -36,6 +36,24 @@
 				<tr><td colspan="2" align="right"><input type="submit" value="提交" class="submit"></td></tr>
 			</table>
 		</div>
+		<span>&nbsp&nbsp&nbsp&nbsp</span>
+	<%
+		if(request.getParameter("flag")==null);
+		else if(request.getParameter("flag").equals("1")){
+			out.print("<span style=\"font-size:25px;color:#ff0000\">源密码错误</span>");
+		}
+		else if(request.getParameter("flag").equals("2")){
+			out.print("<span style=\"font-size:25px;color:#ff0000\">两次输入的密码不相同</span>");
+		}
+		else if(request.getParameter("flag").equals("3")){
+			out.print("<span style=\"font-size:25px;color:#ff0000\">修改成功</span>");
+		}
+	%>
+	<br>
 	</form>
 </body>
 </html>
+
+
+
+

@@ -40,6 +40,22 @@
     <servlet-name>showInfoServlet</servlet-name>
     <url-pattern>/showInfoServlet</url-pattern>
   	</servlet-mapping>
+  	<servlet>
+    <servlet-name>markAnalyse</servlet-name>
+    <servlet-class>com.student.servlet.MarkAnalyseServlet</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+    <servlet-name>markAnalyse</servlet-name>
+    <url-pattern>/markAnalyse</url-pattern>
+  	</servlet-mapping>
+  	<servlet>
+    <servlet-name>modifyPwd</servlet-name>
+    <servlet-class>com.student.servlet.ModifyPwdServlet</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+    <servlet-name>modifyPwd</servlet-name>
+    <url-pattern>/modifyPwd</url-pattern>
+  	</servlet-mapping>
  	&db_config;
 
 </web-app>
