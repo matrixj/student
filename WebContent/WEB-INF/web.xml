@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app [<!ENTITY db_config SYSTEM  "db_config.xml">]>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>student</display-name>
   <welcome-file-list>
@@ -34,6 +35,7 @@
     <servlet-name>showMarkServlet</servlet-name>
     <url-pattern>/showMarkServlet</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>homeServlet</servlet-name>
     <servlet-class>com.student.servlet.HomeServlet</servlet-class>
@@ -50,4 +52,32 @@
     <servlet-name>inputMarkServlet</servlet-name>
     <url-pattern>/input_mark</url-pattern>
   </servlet-mapping>
+ 	
+ 	<servlet>
+    <servlet-name>showInfoServlet</servlet-name>
+    <servlet-class>com.student.servlet.ShowInfoServlet</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+    <servlet-name>showInfoServlet</servlet-name>
+    <url-pattern>/showInfoServlet</url-pattern>
+  	</servlet-mapping>
+  	<servlet>
+    <servlet-name>markAnalyse</servlet-name>
+    <servlet-class>com.student.servlet.MarkAnalyseServlet</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+    <servlet-name>markAnalyse</servlet-name>
+    <url-pattern>/markAnalyse</url-pattern>
+  	</servlet-mapping>
+  	<servlet>
+    <servlet-name>modifyPwd</servlet-name>
+    <servlet-class>com.student.servlet.ModifyPwdServlet</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+    <servlet-name>modifyPwd</servlet-name>
+    <url-pattern>/modifyPwd</url-pattern>
+  	</servlet-mapping>
+  	
+ 	&db_config;
+
 </web-app>

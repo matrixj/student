@@ -41,8 +41,9 @@ public class LoginServlet extends HttpServlet{
 		}
 		else{
 			TeacherMessageControler tmc = new TeacherMessageControler();
-			if(tmc.SearchTeacher(ID,null,password)!=null){
-				req.getSession().setAttribute("No", ID);
+			Teacher tea[] = tmc.SearchTeacher(ID, null, password); 
+			if(tea!=null){
+				req.getSession().setAttribute("Teacher", tea[0]);
 				tmc.Close();
 				req.getRequestDispatcher("test.jsp").forward(req, resp);
 			}

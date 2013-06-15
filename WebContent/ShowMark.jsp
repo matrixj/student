@@ -16,6 +16,11 @@
 	height: 500px;
 	border: 2px solid #000099;
 }
+table td,th{
+	border: 1px solid #000000;
+	width: 100px;
+	height: 30px;
+}
 </style>
 </head>
 <body bgcolor="#b2dfee">
