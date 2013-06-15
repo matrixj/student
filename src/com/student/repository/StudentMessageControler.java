@@ -36,8 +36,9 @@ public class StudentMessageControler {
 			InsertStatment = connection.prepareStatement("insert into Student values(?,?,?,?,?)");	
 			DeleteStatment = connection.prepareStatement("delete from Student where No like ? and Did like ?");	
 			UpdateStatment = connection.prepareStatement("update Student set password = ? where No = ? ");	
-			SearchMarkStatement = connection.prepareStatement("select Mid,Mark.No,Suid,Tid,Score from Mark,Student where " +
-					"											Student.No = Mark.No and Mark.No like ? and Did like ? and Suid like ?");
+			SearchMarkStatement = connection.prepareStatement("select Mid,Mark.No,Mark.Suid,Tid,Score from Mark,Student,Subject where " +
+																"Student.No = Mark.No and Mark.suid = Subject.Suid and " +
+																"Mark.No like ? and Did like ? and Subject.Name like ?");
 			InsertMarkStatement = connection.prepareStatement("insert into Mark(No,Suid,Tid,Score) values(?,?,?,?)");
 			SearchAllMarkStaement = connection.prepareStatement("select * from Mark");
 		} catch (Exception e) {
@@ -169,15 +170,15 @@ public class StudentMessageControler {
 	/**
 	 * 查询学生个人成绩
 	 */
-	public Mark[] FindStudentMark(String No,String Did,String Sid){
+	public Mark[] FindStudentMark(String No,String Did,String SuName){
 		Mark[] marks;
 		try{
 			if(No==null)No="%";
 			if(Did==null)SearchMarkStatement.setString(2, "%");
 			else SearchMarkStatement.setInt(2, Integer.parseInt(Did));
-			if(Sid==null)SearchMarkStatement.setString(3, "%");
-			else SearchMarkStatement.setInt(3, Integer.parseInt(Sid));
+			if(SuName==null)SuName="%";
 			SearchMarkStatement.setString(1, No);
+			SearchMarkStatement.setString(3, SuName);
 			resultSet = SearchMarkStatement.executeQuery();
 			SearchMarkStatement.clearParameters();
 			resultSet.last();
