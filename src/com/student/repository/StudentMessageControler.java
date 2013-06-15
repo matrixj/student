@@ -73,12 +73,12 @@ public class StudentMessageControler {
 				do{
 					Student stu = new Student();
 					stu.setNo(resultSet.getString(1));
-					Department de = new Department();
-					de.setDid(resultSet.getInt(2));
-					stu.setDepartment(de);	//此department只有did，其他属性为空
-//					sqlConn sc = new sqlConn();
-//					Department[] dep = (Department[])sc.getDepartment("Did", Integer.toString(resultSet.getInt(2))).toArray();
-//					stu.setDepartment(dep[0]);
+					//Department de = new Department();
+					//de.setDid(resultSet.getInt(2));
+					//stu.setDepartment(de);	//此department只有did，其他属性为空
+					sqlConn sc = new sqlConn();
+					Department[] dep = sc.getDepartment("Did", Integer.toString(resultSet.getInt(2)));
+					stu.setDepartment(dep[0]);
 					stu.setName(resultSet.getString(3));
 					stu.setSex(resultSet.getString(4));
 					stu.setPassword(resultSet.getString(5));
