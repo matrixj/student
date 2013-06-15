@@ -1,3 +1,6 @@
+<%@page import="com.student.bean.model.Person"%>
+<%@page import="com.student.bean.model.Student"%>
+<%@page import="com.student.bean.model.Teacher"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,14 +12,28 @@
 <script type="text/javascript" src="js/head.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
 <title>成绩管理系统</title>
+<%
+	Teacher teacher = (Teacher) session.getAttribute("Teacher");
+	Student student = (Student) session.getAttribute("Student");
+	String name = null;
+	String identify = null;
+	if(teacher != null) {
+		identify = "老师";
+		name = teacher.getName();
+	}
+	else {
+		identify = "学生";
+		name = student.getName();
+	}
+%>
 </head>
 <div id="div_headPage">
 	<div class="headTips">
 		<div class="hello">
-			<span>身份：学生</span>
+			<span>身份：<%=identify %></span>
 			<div class="float_right">
 				<span>你好，</span>
-				<a href="">屌丝</a>
+				<a href=""><%=name %></a>
 				<a href="" class="float_right" onmouseover="onLogoutHover(this);" onmouseout="onLogoutLeave(this);">退出登录</a>
 			</div>
 			<div class="clear"></div>

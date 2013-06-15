@@ -27,10 +27,10 @@
 	   </script>
  <% }
 %>
-<jsp:useBean id="teacher" class="com.student.bean.TeacherEnterBean" scope="page"></jsp:useBean>
+<jsp:useBean id="tea" class="com.student.bean.TeacherEnterBean" scope="page"></jsp:useBean>
          <form action="TeacherEnterSevlet" method="post" >
          <center>教师：<select name="teacher">
-         <% String[] name = teacher.AllTeacherName();
+         <% String[] name = tea.AllTeacherName();
          int i = 0 ;
              while (name[i]!=null){%>
             	 <option name="<%=name[i]%>"><%=name[i] %></option>
@@ -38,9 +38,9 @@
              i++;}
          %>
          </select>
-         &nbsp&nbsp&nbsp&nbsp 
+         &nbsp;&nbsp;&nbsp;&nbsp; 
                                  专业：<select name="Major">
-         <% String[] major = teacher.Major();
+         <% String[] major = tea.Major();
              i = 0 ;
              while (major[i]!=null){%>
             	 <option name="<%=major[i]%>"><%=major[i] %></option>
@@ -48,14 +48,14 @@
              i++;}
          %></select>
                                      年级：<select name="Grade">
-           <% String[] grade = teacher.Grade();
+           <% String[] grade = tea.Grade();
              i = 0 ;
              while (grade[i]!=null){%>
             	 <option name="<%=grade[i]%>"><%=grade[i] %></option>
            <%
              i++;}%>
             </select> 班级: <select name="Class">
-                                        <% String[] Class= teacher.Class();
+                                        <% String[] Class= tea.Class();
              i = 0 ;
              while (Class[i]!=null){%>
             	 <option name="<%=Class[i]%>"><%=Class[i] %></option>
@@ -63,7 +63,7 @@
              i++;}
              %>
              </select>
-         &nbsp&nbsp&nbsp&nbsp
+         &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="submit" value="确定" > &nbsp&nbsp <a href="TeacherEnterSevlet"  >创建班级</a></center>
          </form>
          <%  
@@ -80,8 +80,8 @@
 <th>姓名</th><th>性别</th><th>学号</th><th>密码</th><th>操作</th></tr></thead>
          <%
             i = 0;
-         String[][] msg = teacher.Student(grade_show, class_show,major_show);
-         int Did = teacher.Did(grade_show, class_show,major_show);
+         String[][] msg = tea.Student(grade_show, class_show,major_show);
+         int Did = tea.Did(grade_show, class_show,major_show);
        
                while(msg[i][1]!=null){
             	   %>
