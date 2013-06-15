@@ -1,5 +1,8 @@
 init(setOnchange);
 
+var subjectId = -1;
+var flag = 0;
+
 function setOnchange() {
 	var selects = document.getElementsByTagName("select");
 	for(var i = 0; i < selects.length; i++) {
@@ -85,15 +88,16 @@ function onInputClick() {
 function inputMarkCallback(result) {
 	var data = eval("(" + result + ")");
 	var students = data.students;
+	var ele = document.getElementById("students");
 	if(students != null && students.length > 0) {
-		var ele = document.getElementById("students");
-		ele.setAttribute("name", data.subject);
-		var html = "<table width=\"600px\" class=\"table_student\">" +
+		subjectId = data.subject;
+		var html = "<table width=\"700px\" class=\"table_student\">" +
 						"<tr>" +
 							"<td>学号</td>" +
 							"<td>名称</td>" +
 							"<td>性别</td>" +
 							"<td>分数</td>" +
+							"<td></td>" + 
 						"</tr>";
 		for(var i = 0; i < students.length; i++) {
 			html += "<tr>" +
@@ -101,11 +105,59 @@ function inputMarkCallback(result) {
 						"<td>" + students[i].name + "</td>" + 
 						"<td>" + students[i].sex + "</td>" + 
 						"<td><input type=\"text\" class=\"score\" name=\"" + students[i].no + "\"></td>" + 
+						"<td id=\"tips_" + students[i].no + "\" class=\"student_tips\"></td>" + 
 					"</tr>";
 		}
 		html += "</table>";
-		html += "<div class=\"row\"><a href=\"javascript:;\" class=\"a_btn\">确定录入</a></div>";
+		html += "<div class=\"row\"><a href=\"javascript:;\" class=\"a_btn\" onclick=\"checkInput();\">确定录入</a></div>";
 		ele.innerHTML = html;
 		set_a_btn();
+		if(data.marks != null && data.marks.length > 0) {
+			flag = 1;
+			for(var i = 0; i < data.marks.length; i++) {
+				document.getElementsByName(data.marks[i].student.no)[0].setAttribute("value", data.marks[i].score);
+			}
+		}
+		else {
+			flag = 0;
+		}
+	}
+	else {
+		ele.innerHTML = "";
+	}
+}
+
+
+function checkInput() {
+	var type = "^((([0-9]{1,2})((\.[0-9]{1,2}){0,1}))$|(100(\.0{1,2}){0,1}))$";
+    var re = new RegExp(type); 
+	var inputs = document.getElementsByTagName("input");
+	var judge = true;
+	for(var i = 0; i < inputs.length; i++) {
+		var className = inputs[i].className.split(" ");
+		for(var j = 0; j < className.length; j++) {
+			if(className[j] == "score") {
+				var score = inputs[i].value;
+				var tips = document.getElementById("tips_" + inputs[i].name);
+				if(score != null && score != "" && score.match(re) != null) {
+					if(score > 100) {
+						tips.innerHTML = "输入错误";
+					}
+					else {
+						tips.innerHTML = "";
+					}
+				}
+				else {
+					tips.innerHTML = "输入错误";
+					judge = false;
+				}
+				break;
+			}
+		}
+	}
+	if(judge) {
+		var form = document.getElementById("form_mark");
+		form.setAttribute("action", "input_mark?flag=" + flag + "&subject=" + subjectId);
+		form.submit();
 	}
 }

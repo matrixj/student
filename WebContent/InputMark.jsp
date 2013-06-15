@@ -87,6 +87,8 @@
 		<a href="javascript:;" class="a_btn" onclick="onInputClick();">选择录入</a>
 	</div>
 	
-	<div class="row" id="students"></div>
+	<form action="" method="post" id="form_mark">
+		<div class="row student_list" id="students"></div>
+	</form>
 </body>
 </html>

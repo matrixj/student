@@ -3,6 +3,7 @@ package com.student.repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.student.bean.model.Department;
 import com.student.bean.model.Mark;
@@ -218,6 +219,38 @@ public class StudentMessageControler {
 			return false;
 		}
 	}
+	
+	/**
+	 * 插入学生成绩
+	 * @param marks	key为学生学号， value为学生成绩
+	 * @param suid
+	 * @param tid
+	 * @return
+	 */
+	public boolean insertStudentsMarks(
+			Map<String, String> marks, String suid, String tid) {
+		try {
+			connection.setAutoCommit(false);
+			for(Map.Entry<String, String> tmp : marks.entrySet()) {
+				if(!InsertStudnetMark(tmp.getKey(), suid, tid, tmp.getValue())) {
+					throw new SQLException();
+				}
+			}
+			connection.commit();
+			connection.setAutoCommit(true);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+				connection.setAutoCommit(true);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
 	
 	/**
 	 * 查找指定班别的所有学生

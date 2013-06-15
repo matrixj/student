@@ -10,6 +10,10 @@
 	float: right;
 }
 
+.invisible {
+	display: none;
+}
+
 body {
 	background: url('../image/reg_bg_x.jpg') repeat-x scroll 0 top #DCEAF5;
 	margin: 0;
@@ -25,4 +29,14 @@ body {
 	padding-bottom: 5px;
 	background-color: #00EC00;
 	color: white;
+}
+
+.row {
+	width: 600px;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	word-break : break-all;
 }

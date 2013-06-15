@@ -2,19 +2,24 @@ package com.student.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.student.bean.model.Mark;
 import com.student.bean.model.Student;
 import com.student.bean.model.Subject;
 import com.student.repository.DepartmentMessageControler;
+import com.student.repository.MarkMessageControler;
 import com.student.repository.StudentMessageControler;
 import com.student.repository.TeacherMessageControler;
 import com.student.util.JsonUtil;
+import com.student.util.MathUtil;
 
 /**
  * 录入成绩
@@ -37,22 +42,42 @@ public class InputMarkServlet extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
+		String flag = req.getParameter("flag");
+		String result = req.getParameter("result");
 		String subject = req.getParameter("subject");
 		String major = req.getParameter("major");
 		String grade = req.getParameter("grade");
 		String cls = req.getParameter("class");
-		if(subject != null && major != null && grade != null && cls != null) {
-			getStudentPage(req, resp, subject, major, grade, cls);
-		}
-		else {
-			if(subject != null && major != null && 
-					!subject.equals("") && !major.equals("")) {
-				if(grade != null && !grade.equals("")) {
-					getClassPage(req, resp, subject, major, grade, "1");
+		if(flag == null) {
+			if(result != null) {
+				req.getRequestDispatcher("InputMarkResult.jsp").forward(req, resp);
+				return;
+			}
+			if(subject != null && major != null && grade != null && cls != null) {
+				getStudentPage(req, resp, subject, major, grade, cls, "1");
+			}
+			else {
+				if(subject != null && major != null && 
+						!subject.equals("") && !major.equals("")) {
+					if(grade != null && !grade.equals("")) {
+						getClassPage(req, resp, subject, major, grade, "1");
+					}
+					else {
+						getGradeClassPage(req, resp, subject, major, "1");
+					}
 				}
 				else {
-					getGradeClassPage(req, resp, subject, major, "1");
+					getRowPage(req, resp, "1");
 				}
+			}
+		}
+		else {
+			//提交成绩
+			if(flag.equals("0")) {
+				submitMark(req, resp, "1");
+			}
+			else if(flag.equals("1")) {
+				updateMark(req, resp, "1");
 			}
 			else {
 				getRowPage(req, resp, "1");
@@ -130,14 +155,84 @@ public class InputMarkServlet extends HttpServlet {
 	private void getStudentPage(
 			HttpServletRequest req, HttpServletResponse resp, 
 			String subject, String major, 
-			String grade, String cls) throws IOException {
+			String grade, String cls, String tid) throws IOException {
 		PrintWriter out = resp.getWriter();
 		StudentMessageControler smc = new StudentMessageControler();
+		MarkMessageControler mmc = new MarkMessageControler();
 		List<Student> students = smc.findStudentByClass(major, grade, cls);
+		List<Mark> marks = mmc.getStudentsScores(students, subject, tid);
 		smc.Close();
-		JsonUtil.sendJson(out, "students", students, "subject", subject);
+		mmc.close();
+		JsonUtil.sendJson(
+				out, "students", students, "subject", subject, "marks", marks);
 		out.flush();
 		out.close();
+	}
+	
+	
+	/**
+	 * 提交成绩 
+	 * @param req
+	 * @param resp
+	 * @throws IOException 
+	 */
+	private void submitMark(
+			HttpServletRequest req, HttpServletResponse resp, String tid) 
+					throws IOException {
+		String suid = req.getParameter("subject");
+		//key为学生的id，value为学生成绩
+		Map<String, String> marks = new HashMap<String, String>();
+		Map<String, String[]> paramMap = req.getParameterMap();
+		for(Map.Entry<String, String[]> tmp : paramMap.entrySet()) {
+			if(MathUtil.isDigit(tmp.getKey())) {
+				marks.put(tmp.getKey(), tmp.getValue()[0]);
+			}
+		}
+		StudentMessageControler smc = new StudentMessageControler();
+		boolean judge = smc.insertStudentsMarks(marks, suid, tid);
+		smc.Close();
+		if(judge) {
+			//成功了
+			resp.sendRedirect("input_mark?result=success");
+			return;
+		}
+		else {
+			resp.sendRedirect("input_mark?result=fail");
+			return;
+		}
+	}
+	
+	/**
+	 * 更新成绩
+	 * @param req
+	 * @param resp
+	 * @param tid
+	 * @throws IOException 
+	 */
+	private void updateMark(
+			HttpServletRequest req, HttpServletResponse resp, String tid) 
+					throws IOException {
+		String suid = req.getParameter("subject");
+		//key为学生的id，value为学生成绩
+		Map<String, String> marks = new HashMap<String, String>();
+		Map<String, String[]> paramMap = req.getParameterMap();
+		for(Map.Entry<String, String[]> tmp : paramMap.entrySet()) {
+			if(MathUtil.isDigit(tmp.getKey())) {
+				marks.put(tmp.getKey(), tmp.getValue()[0]);
+			}
+		}
+		MarkMessageControler mmc = new MarkMessageControler();
+		boolean judge = mmc.updateStudentsMark(marks, suid, tid);
+		mmc.close();
+		if(judge) {
+			//成功了
+			resp.sendRedirect("input_mark?result=success");
+			return;
+		}
+		else {
+			resp.sendRedirect("input_mark?result=fail");
+			return;
+		}
 	}
 	
 }
