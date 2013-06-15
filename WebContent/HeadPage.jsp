@@ -42,10 +42,24 @@
 	
 	<div id="div_title_bar">
 		<ul class="ul_title">
-			<li class="li_title"><a class="a_title" href="home">首页</a></li>
-			<li class="li_title"><a class="a_title" href="">成绩查询</a></li>
-			<li class="li_title"><a class="a_title" href="">成绩统计</a></li>
-			<li class="li_title"><a class="a_title" href="">个人资料</a></li>
+			<%
+				if(teacher != null) {
+			%>
+					<li class="li_title teacher_title"><a class="a_title" href="home">首页</a></li>
+					<li class="li_title teacher_title"><a class="a_title" href="markAnalyse">成绩统计</a></li>
+					<li class="li_title teacher_title"><a class="a_title" href="">科目录入</a></li>
+					<li class="li_title teacher_title"><a class="a_title" href="">名单录入</a></li>
+					<li class="li_title teacher_title"><a class="a_title" href="">成绩录入</a></li>
+			<%
+				}
+				else {
+			%>
+					<li class="li_title student_title"><a class="a_title" href="home">首页</a></li>
+					<li class="li_title student_title"><a class="a_title" href="showMarkServlet">成绩查询</a></li>
+					<li class="li_title student_title"><a class="a_title" href="showInfo">个人资料</a></li>
+			<%
+				}
+			%>
 		</ul>
 	</div>
 	

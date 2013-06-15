@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet{
 			Student stu[] = smc.SearchStudent(ID,password,null,null,null);
 			if(stu!=null){
 				req.getSession().setAttribute("Student", stu[0]);
+				req.getSession().setAttribute("Teacher", null);
 				smc.Close();
 //				req.getRequestDispatcher("home").forward(req, resp);
 				resp.sendRedirect("home");
@@ -46,6 +47,7 @@ public class LoginServlet extends HttpServlet{
 			Teacher tea[] = tmc.SearchTeacher(ID, null, password); 
 			if(tea!=null){
 				req.getSession().setAttribute("Teacher", tea[0]);
+				req.getSession().setAttribute("Student", null);
 				tmc.Close();
 //				req.getRequestDispatcher("home").forward(req, resp);
 				resp.sendRedirect("home");
