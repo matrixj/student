@@ -14,7 +14,7 @@
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
-		<welcome-file>loginPage</welcome-file>
+		<welcome-file>home</welcome-file>
 	</welcome-file-list>
 	
 	<!-- 防止用户直接访问jsp页面 -->
