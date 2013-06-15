@@ -24,7 +24,7 @@
 %>
 <div id="carbonForm">
     <h1>班级创建</h1>
-    <form action="CreateClassSevlet" method="post" id="signupForm">
+    <form action="CreateClassServlet" method="post" id="signupForm">
     <div class="fieldContainer">
       <div class="formRow">
         <div class="label">
