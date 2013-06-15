@@ -143,6 +143,38 @@ public class TeacherEnterHandle {
 	    	}
 	    	return false;
 	    }
+	    //判断教师是否存在
+	    public boolean isExist_teacher(String name){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("select * from teacher where name=?");
+	    	       state.setString(1, name);
+	    	
+	    	      ResultSet rs = state.executeQuery();
+	    	       if(rs.next()){
+	    	    	   return true;
+	    	       }
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    	return false;
+	    }
+	    //判断科目是否存在
+	    public boolean isExist_subject(String name){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("select * from subject where Name=?");
+	    	       state.setString(1, name);
+	    	
+	    	      ResultSet rs = state.executeQuery();
+	    	       if(rs.next()){
+	    	    	   return true;
+	    	       }
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    	return false;
+	    }
 	    /*
 	     * 获取对应department的Did*
 	     * param1  class,grade,major
@@ -164,6 +196,7 @@ public class TeacherEnterHandle {
 	    	}
 	  	  return 0;
 	    }
+	    
 	    /*
 	     * 获取对应Did下学生名单*
 	     * param1 int Did
@@ -229,22 +262,64 @@ public class TeacherEnterHandle {
 	    	}
 	    }
 	    /*
-	     * insert new class*
+	     * insert new student*
 	     * param    all
 	     */
-	    public void InsertClass(int Did,String major,String _class,String grade){
+	    public void InsertTeacher_subject(String name,int subjectid){
 	    	try{
-	    		PreparedStatement  state = conn.prepareStatement("insert into department values (?,?,?,?)");
-	    		
-	    		state.setInt(1, Did);
-	    		state.setString(2, major);
-	    		state.setString(3, grade);
-	    		state.setString(4,  _class);
+                  int teacherid = 0;
+	    		PreparedStatement state = conn.prepareStatement("select * from teacher where Name = ?");
+		    	 state.setString(1, name);
+		    	 ResultSet rs = state.executeQuery();
+		    	 if(rs.next())
+		    		 teacherid= rs.getInt(1); 
+	    		  state = conn.prepareStatement("insert into teacher_subject values (?,?)");
+	    		state.setInt(1, subjectid);
+	    		state.setInt(2, teacherid);
 	    	    state.executeUpdate();
 	    	}
 	    	catch(Exception e){
 	    		e.printStackTrace();
 	    	}
+	    }
+	    /*
+	     * insert new class*
+	     * param    all
+	     */
+	    public void InsertClass(String major,String _class,String grade){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("insert into department(Major,Grade,Class) values (?,?,?)");
+	    		
+	    		state.setString(1, major);
+	    		state.setString(2, grade);
+	    		state.setString(3,  _class);
+	    	    state.executeUpdate();
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    }
+	    /*
+	     * insert new subject*
+	     * param    all
+	     */
+	    public int InsertSubject(String subject){
+	    	try{
+	    		PreparedStatement  state = conn.prepareStatement("insert into subject(Name) values (?)");
+	    		
+	    		state.setString(1, subject);
+	    	
+	    	    state.executeUpdate();
+	    	     state = conn.prepareStatement("select * from subject where Name = ?");
+		    	 state.setString(1, subject);
+		    	 ResultSet rs = state.executeQuery();
+		    	 if(rs.next())
+	    	    	  return rs.getInt(1);
+	    	}
+	    	catch(Exception e){
+	    		e.printStackTrace();
+	    	}
+	    	return 0;
 	    }
 	    /*
 	     * insert new class*
