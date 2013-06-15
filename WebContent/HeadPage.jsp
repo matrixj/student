@@ -45,7 +45,7 @@
 				<%
 					}
 				%>
-				<a href="" class="float_right" onmouseover="onLogoutHover(this);" onmouseout="onLogoutLeave(this);">退出登录</a>
+				<a href="logout" class="float_right" onmouseover="onLogoutHover(this);" onmouseout="onLogoutLeave(this);">退出登录</a>
 			</div>
 			<div class="clear"></div>
 		</div>

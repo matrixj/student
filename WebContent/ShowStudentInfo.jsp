@@ -6,6 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="HeadPage.jsp" %>
+<script type="text/javascript">
+	setTitleBar('title_info');
+</script>
 <title>个人信息</title>
 <style type="text/css">
 .info{

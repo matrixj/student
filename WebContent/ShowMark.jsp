@@ -5,6 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="HeadPage.jsp" %>
+<script type="text/javascript">
+	setTitleBar('title_mark');
+</script>
 <title>¸öÈË³É¼¨</title>
 <style type="text/css">
 .info{

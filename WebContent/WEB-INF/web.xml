@@ -121,6 +121,15 @@
   		<url-pattern>/loginPage</url-pattern>
   	</servlet-mapping>
   	
+  	<servlet>
+  		<servlet-name>logoutServlet</servlet-name>
+  		<servlet-class>com.student.servlet.LogoutServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>logoutServlet</servlet-name>
+  		<url-pattern>/logout</url-pattern>
+  	</servlet-mapping>
+  	
   <servlet>
     <servlet-name>CreateClass</servlet-name>
     <servlet-class>com.student.servlet.CreateClassServlet</servlet-class>
