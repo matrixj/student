@@ -37,10 +37,17 @@
 
 .li_title {
 	list-style: none;
-	width: 160px;
 	position: relative;
 	float: left;
 	text-align: center;
+}
+
+.student_title {
+	width: 220px;
+}
+
+.teacher_title {
+	width: 140px;
 }
 
 .li_title a {

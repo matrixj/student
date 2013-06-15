@@ -17,7 +17,6 @@ import com.student.repository.TeacherEnterHandle;
 /**
  * Servlet implementation class TeacherUpdateMSGServlet
  */
-@WebServlet("/TeacherUpdateMSGServlet")
 public class TeacherUpdateMSGServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

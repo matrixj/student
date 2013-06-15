@@ -15,14 +15,13 @@ import com.student.repository.TeacherEnterHandle;
 /**
  * Servlet implementation class CreateClassSevlet
  */
-@WebServlet("/CreateClassSevlet")
-public class CreateClassSevlet extends HttpServlet {
+public class CreateClassServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateClassSevlet() {
+    public CreateClassServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
