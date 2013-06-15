@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet{
 			if(tea!=null){
 				req.getSession().setAttribute("Teacher", tea[0]);
 				tmc.Close();
-				req.getRequestDispatcher("test.jsp").forward(req, resp);
+				req.getRequestDispatcher("home").forward(req, resp);
 			}
 			else{
 				req.getRequestDispatcher("LoginPage.jsp?flag=1&uncorrect=用户名或密码不正确").forward(req, resp);
