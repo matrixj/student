@@ -42,7 +42,7 @@ class sqlConn{
 	}
 	
 	//其中key为Department的一个字段名，value为要查询字段的值
-	public ArrayList getDepartment(String key, String value) throws Exception
+	public Department[] getDepartment(String key, String value) throws Exception
 	{	initSelectStm();
 		int flag = 0;
 		if (key == "Did") {
@@ -78,9 +78,9 @@ class sqlConn{
 			dp.setCls(rs.getString("Class"));	
 			depList.add(dp);
 		} 
-		//int size=depList.size();
-	//	Department[] dpArray = (Department[])depList.toArray(new Department[size]);
-		return depList;
+		int size=depList.size();
+		Department[] dpArray = (Department[])depList.toArray(new Department[size]);
+		return dpArray;
 	}
 	
 	public Subject[] getSubject(String key, String value) throws Exception
@@ -130,7 +130,7 @@ class sqlConn{
 	public int setDepartment(Department dp) throws Exception
 	{
 		initInsertStm();
-		if (getDepartment("Did", Integer.toString(dp.getDid())).size() > 0) 
+		if (getDepartment("Did", Integer.toString(dp.getDid())).length > 0) 
 			return 0;
 		dePstmt[0].setString(1, Integer.toString(dp.getDid()));
 		dePstmt[0].setString(2, dp.getMajor());
