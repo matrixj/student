@@ -35,8 +35,8 @@
   <servlet-mapping>
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/loginServlet</url-pattern>
-
-  	</servlet-mapping>
+ 	</servlet-mapping>
+ 	
   	<servlet>
     <servlet-name>showMarkServlet</servlet-name>
     <servlet-class>com.student.servlet.ShowMarkServlet</servlet-class>
@@ -46,6 +46,25 @@
     <url-pattern>/showMarkServlet</url-pattern>
   	</servlet-mapping>
   	
+  	<servlet>
+    <servlet-name>showInfo</servlet-name>
+    <servlet-class>com.student.servlet.ShowInfoServlet</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+    <servlet-name>showInfo</servlet-name>
+    <url-pattern>/showInfo</url-pattern>
+  	</servlet-mapping>
+  	
+  	<servlet>
+    <servlet-name>modifyPwdPage</servlet-name>
+    <servlet-class>com.student.servlet.ModifyPwdPage</servlet-class>
+  	</servlet>
+	<servlet-mapping>
+    <servlet-name>modifyPwdPage</servlet-name>
+    <url-pattern>/modifyPwdPage</url-pattern>
+  	</servlet-mapping>
+  	
+
   	<servlet>
   		<servlet-name>homeServlet</servlet-name>
   		<servlet-class>com.student.servlet.HomeServlet</servlet-class>
@@ -64,6 +83,7 @@
     <servlet-name>markAnalyse</servlet-name>
     <url-pattern>/markAnalyse</url-pattern>
   	</servlet-mapping>
+  	
   	<servlet>
     <servlet-name>modifyPwd</servlet-name>
     <servlet-class>com.student.servlet.ModifyPwdServlet</servlet-class>

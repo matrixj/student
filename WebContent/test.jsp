@@ -11,7 +11,7 @@
 </head>
 <body>
 <a href="showMarkServlet">showMark</a>
-<a href="showInfoServlet">showInfo</a>
+<a href="showInfo">showInfo</a>
 <a href="markAnalyse">markAnalyse</a>
 <%
 	//TeacherMessageControler tmc = new TeacherMessageControler();
